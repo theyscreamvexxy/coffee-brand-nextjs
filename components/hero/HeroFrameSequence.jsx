@@ -101,7 +101,7 @@ export default function HeroFrameSequence() {
         const canvas = canvasRef.current;
         const ctx = canvas.getContext("2d");
 
-        const frameCount = 131;
+        const frameCount = 240;
         let imagesLoaded = 0;
         const totalFrames = frameCount;
 
@@ -110,7 +110,7 @@ export default function HeroFrameSequence() {
         const frames = Array.from(
             { length: frameCount },
             (_, i) =>
-                `/frames/hero-coffee-video_mp4_frames/frame_${String(i + 1).padStart(3, "0")}.png`
+                `/frames/hero/ezgif-frame-${String(i + 1).padStart(3, "0")}.jpg`
         );
         const sequence = {
             frame: 0,
