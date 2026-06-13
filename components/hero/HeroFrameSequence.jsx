@@ -17,6 +17,7 @@ export default function HeroFrameSequence() {
     const [portalWidth, setPortalWidth] = useState(0);
     const [portalHeight, setPortalHeight] = useState(8);
     const [heroReveal, setHeroReveal] = useState(false);
+    const [portalGreen, setPortalGreen] = useState(false);
     const [loaderOpacity, setLoaderOpacity] = useState(1);
 
 
@@ -67,8 +68,11 @@ export default function HeroFrameSequence() {
         });
 
         const openTimer = setTimeout(() => {
+            setPortalGreen(true);
             setPortalHeight(window.innerHeight);
         }, 1200);
+
+
 
         const revealTimer = setTimeout(() => {
             setHeroReveal(true);
@@ -77,7 +81,7 @@ export default function HeroFrameSequence() {
             setTimeout(() => {
                 setShowLoader(false);
             }, 600);
-        }, 2400);
+        }, 4200);
 
         return () => {
             clearTimeout(openTimer);
@@ -376,30 +380,87 @@ export default function HeroFrameSequence() {
 
                     </div>
                     {loaderPhase === "portal" && (
+                        <>
 
-                        <div
+                            <div
 
-                            className="absolute left-1/2 top-1/2"
+                                className="absolute left-1/2 top-1/2"
 
-                            style={{
+                                style={{
 
-                                width: `${portalWidth}vw`,
+                                    width: `${portalWidth}vw`,
 
-                                height: `${portalHeight}px`,
+                                    height: `${portalHeight}px`,
 
-                                backgroundColor: heroReveal ? "transparent" : "white",
+                                    backgroundColor: heroReveal
+                                        ? "transparent"
+                                        : portalGreen
+                                            ? "#4E5B4A"
+                                            : "white",
+                                    filter: portalGreen ? "blur(120px)" : "blur(80px)",
 
-                                transform: "translate(-50%, -50%)",
+                                    transform: "translate(-50%, -50%)",
 
-                                transition: "width 1.2s cubic-bezier(0.22,1,0.36,1), height 1.2s cubic-bezier(0.22,1,0.36,1)",
+                                    transition: "width 1.2s cubic-bezier(0.22,1,0.36,1), height 1.2s cubic-bezier(0.22,1,0.36,1), background-color 2s ease",
 
-                            }}
+                                }}
 
-                        />
+                            />
+                            {portalGreen && (
+                                <div
+                                    className="absolute inset-0 pointer-events-none"
+                                    style={{
+                                        background:
+                                            "radial-gradient(circle at 30% 40%, rgba(255,255,255,0.15), transparent 40%), radial-gradient(circle at 70% 60%, rgba(255,255,255,0.12), transparent 45%), radial-gradient(circle at 50% 50%, rgba(255,255,255,0.08), transparent 50%)",
+                                        filter: "blur(80px)",
+                                        opacity: 0.35,
+                                        animation: "fogFloat 6s ease-in-out infinite",
+                                    }}
+                                />
+                            )}
 
+                            {portalGreen && !heroReveal && (
+                                <div
+                                    className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
+                                    style={{
+                                        transform: "translateY(-50px)",
+                                    }}
+                                >
+                                    <h1
+                                        style={{
+                                            color: "#ffffff",
+                                            fontFamily: "var(--font-cormorant)",
+                                            fontSize: "clamp(2.8rem, 5vw, 4.5rem)",
+                                            fontWeight: 500,
+                                            letterSpacing: "0.22em",
+                                            textTransform: "uppercase",
+                                            textAlign: "center",
+                                        }}
+                                    >
+                                        FOREST FARMER
+                                    </h1>
+
+                                    <p
+                                        style={{
+                                            color: "rgba(255,255,255,0.75)",
+                                            marginTop: "24px",
+                                            fontSize: "clamp(0.95rem, 1.2vw, 1.1rem)",
+                                            letterSpacing: "0.12em",
+                                            textAlign: "center",
+                                            maxWidth: "700px",
+                                        }}
+                                    >
+                                        COFFEE ROASTER
+                                    </p>
+                                </div>
+                            )}
+
+                        </>
                     )}
 
                 </div>
+
+
 
 
             )}

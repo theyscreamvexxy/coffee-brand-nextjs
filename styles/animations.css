@@ -1,4 +1,18 @@
-// styles/animations.css
-// Purpose: CSS animation definitions and keyframe declarations.
-// Contains: shimmer keyframes (skeleton loader), fadeIn, slideUp, pulse, spin.
-// Used alongside GSAP and Framer Motion for CSS-only micro-animations.
+/* styles/animations.css */
+/* Purpose: CSS animation definitions and keyframe declarations. */
+/* Contains: shimmer keyframes, fadeIn, slideUp, pulse, spin. */
+/* Used alongside GSAP and Framer Motion for CSS-only micro-animations. */
+
+@keyframes fogFloat {
+    0% {
+        transform: translateX(-15px) translateY(0px);
+    }
+
+    50% {
+        transform: translateX(15px) translateY(-8px);
+    }
+
+    100% {
+        transform: translateX(-15px) translateY(0px);
+    }
+}
