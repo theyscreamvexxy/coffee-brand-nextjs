@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --color-light-sage: #CACBA7;
+    --color-muted-green: #AAB79A;
+    --color-forest-sage: #6D8575;
+    --color-deep-forest: #3D5757;
+    --color-black: #000000;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-inter);
+    background: #000000;
+    color: #ffffff;
+}

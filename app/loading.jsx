@@ -1,0 +1,6 @@
+// app/loading.jsx
+import LogoLoader from "@/components/ui/LogoLoader";
+
+export default function Loading() {
+    return <LogoLoader />;
+}
