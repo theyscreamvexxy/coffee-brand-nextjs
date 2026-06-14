@@ -280,7 +280,7 @@ export default function HeroFrameSequence() {
             scrollTrigger: {
                 trigger: sectionRef.current,
                 start: "top top",
-                end: "+=3000",
+                end: "+=700",
                 scrub: true,
                 pin: true,
                 // onRefresh fires after every ScrollTrigger.refresh():
@@ -467,7 +467,7 @@ export default function HeroFrameSequence() {
 
             <section
                 ref={sectionRef}
-                className="relative h-[400vh] w-full overflow-hidden"
+                className="relative h-[110vh] w-full overflow-hidden"
             >
                 <canvas
                     ref={canvasRef}
