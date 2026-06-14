@@ -298,7 +298,8 @@ function ContentBlock({ step, delay = 0 }) {
         {/* Ghost step number */}
         <motion.div
           {...fadeIn(delay)}
-          className="text-[clamp(4.5rem,10vw,9rem)] font-bold leading-none text-white/[0.05] select-none mb-[-0.5rem]"
+          className="text-[clamp(4.5rem,10vw,9rem)] font-bold leading-none select-none mb-[-0.5rem]"
+          style={{ color: 'rgba(202,203,167,0.05)' }}
         >
           {step.number}
         </motion.div>
@@ -307,6 +308,7 @@ function ContentBlock({ step, delay = 0 }) {
         <motion.h3
           {...reveal(delay + 0.1)}
           className="text-[clamp(2.6rem,5.5vw,4.5rem)] font-light leading-[0.88] tracking-[-0.025em] mb-6"
+          style={{ color: '#CACBA7' }}
         >
           {step.title}
         </motion.h3>
@@ -314,7 +316,8 @@ function ContentBlock({ step, delay = 0 }) {
         {/* ── BOLD SUBHEADING ── */}
         <motion.p
           {...reveal(delay + 0.16)}
-          className="text-[clamp(1.1rem,2.2vw,1.6rem)] font-semibold leading-[1.15] tracking-[-0.01em] text-white/80 mb-6 whitespace-pre-line"
+          className="text-[clamp(1.1rem,2.2vw,1.6rem)] font-semibold leading-[1.15] tracking-[-0.01em] mb-6 whitespace-pre-line"
+          style={{ color: '#ffffff' }}
         >
           {step.subheading}
         </motion.p>
@@ -322,7 +325,8 @@ function ContentBlock({ step, delay = 0 }) {
         {/* Description */}
         <motion.p
           {...reveal(delay + 0.22)}
-          className="text-[0.98rem] lg:text-[1.05rem] font-light leading-[1.85] text-white/55 max-w-md mb-10"
+          className="text-[0.98rem] lg:text-[1.05rem] font-light leading-[1.85] max-w-md mb-10"
+          style={{ color: 'rgba(170,183,154,0.82)' }}
         >
           {step.text}
         </motion.p>
@@ -333,12 +337,13 @@ function ContentBlock({ step, delay = 0 }) {
         {step.details.map((d, i) => (
           <div
             key={d.label}
-            className="flex items-baseline justify-between py-3 border-b border-white/[0.07] group"
+            className="flex items-baseline justify-between py-3 group"
+            style={{ borderBottom: '1px solid rgba(202,203,167,0.10)' }}
           >
-            <span className="text-[0.7rem] uppercase tracking-[0.28em] text-white/30 font-light group-hover:text-white/50 transition-colors duration-300">
+            <span className="text-[0.7rem] uppercase tracking-[0.28em] font-light group-hover:opacity-70 transition-opacity duration-300" style={{ color: 'rgba(202,203,167,0.50)' }}>
               {d.label}
             </span>
-            <span className="text-[0.82rem] font-light text-white/65 group-hover:text-white/85 transition-colors duration-300">
+            <span className="text-[0.82rem] font-light group-hover:opacity-90 transition-opacity duration-300" style={{ color: 'rgba(170,183,154,0.80)' }}>
               {d.value}
             </span>
           </div>
@@ -358,34 +363,36 @@ export default function JourneySection() {
   const glowY = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
 
   return (
-    <Section className="bg-black text-white overflow-hidden" ref={sectionRef}>
+    <div ref={sectionRef}>
+    <Section className="overflow-hidden" style={{ background: '#1a2e24', color: '#CACBA7' }}>
 
       {/* Ambient glow */}
       <motion.div aria-hidden style={{ y: glowY }} className="pointer-events-none absolute inset-0 overflow-hidden">
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-[0.03]"
-          style={{ background: "radial-gradient(circle, #AAB79A 0%, #6D8575 50%, transparent 75%)" }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-[0.06]"
+          style={{ background: "radial-gradient(circle, #CACBA7 0%, #AAB79A 50%, transparent 75%)" }}
         />
       </motion.div>
 
       {/* ── HEADER ─────────────────────────────────────── */}
       <div className="mb-6">
-        <Rule className="bg-white/[0.12] mb-7" />
+        <Rule className="mb-7" style={{ background: 'rgba(202,203,167,0.18)' }} />
         <div className="flex items-start justify-between">
           <div>
-            <motion.p {...fadeIn(0.08)} className="uppercase tracking-[0.42em] text-[0.6rem] text-white/30 font-light mb-10 lg:mb-16">
+            <motion.p {...fadeIn(0.08)} className="uppercase tracking-[0.42em] text-[0.6rem] font-light mb-10 lg:mb-16" style={{ color: 'rgba(202,203,167,0.55)' }}>
               Our Process
             </motion.p>
             <motion.h2
               {...reveal(0.14, 32)}
               className="text-[clamp(3rem,7.5vw,7rem)] leading-[0.88] font-light tracking-[-0.025em]"
+              style={{ color: '#CACBA7' }}
             >
               From Forest
               <br />
               <span className="font-semibold">To Cup.</span>
             </motion.h2>
           </div>
-          <motion.span {...fadeIn(0.2)} className="hidden sm:block text-[0.6rem] uppercase tracking-[0.3em] text-white/20 font-light mt-1">
+          <motion.span {...fadeIn(0.2)} className="hidden sm:block text-[0.6rem] uppercase tracking-[0.3em] font-light mt-1" style={{ color: 'rgba(202,203,167,0.25)' }}>
             §&ensp;002
           </motion.span>
         </div>
@@ -395,7 +402,7 @@ export default function JourneySection() {
       <div className="mt-20 lg:mt-28">
         {steps.map((step, index) => (
           <div key={step.number}>
-            <Rule className="bg-white/[0.07] mb-14 lg:mb-20" />
+            <Rule className="mb-14 lg:mb-20" style={{ background: 'rgba(202,203,167,0.10)' }} />
             <motion.div
               {...reveal(0.06)}
               className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-stretch mb-14 lg:mb-20"
@@ -414,15 +421,16 @@ export default function JourneySection() {
             </motion.div>
           </div>
         ))}
-        <Rule className="bg-white/[0.07]" />
+        <Rule className="" style={{ background: 'rgba(202,203,167,0.10)' }} />
       </div>
 
       {/* Bottom close */}
       <div className="mt-14 lg:mt-20 flex items-center gap-4">
-        <Rule className="flex-1 bg-white/[0.08]" />
+        <Rule className="flex-1" style={{ background: 'rgba(202,203,167,0.10)' }} />
         <motion.span {...fadeIn(0.4)} className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#6D8575" }} />
       </div>
 
     </Section>
+    </div>
   );
 }

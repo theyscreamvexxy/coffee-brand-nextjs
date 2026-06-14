@@ -26,11 +26,20 @@ const fadeIn = (delay = 0) => ({
 ───────────────────────────────────────────── */
 function DetailRow({ label, value }) {
   return (
-    <div className="flex items-baseline justify-between border-b border-white/[0.08] py-4 group">
-      <span className="text-sm uppercase tracking-[0.22em] text-white/40 font-light group-hover:text-white/60 transition-colors duration-300">
+    <div
+      className="flex items-baseline justify-between py-4 group"
+      style={{ borderBottom: '1px solid rgba(255,255,255,0.14)' }}
+    >
+      <span
+        className="text-sm uppercase tracking-[0.22em] font-light group-hover:opacity-80 transition-opacity duration-300"
+        style={{ color: 'rgba(255,255,255,0.55)' }}
+      >
         {label}
       </span>
-      <span className="text-sm text-white/70 font-light group-hover:text-white/90 transition-colors duration-300">
+      <span
+        className="text-sm font-light group-hover:opacity-90 transition-opacity duration-300"
+        style={{ color: 'rgba(255,255,255,0.82)' }}
+      >
         {value}
       </span>
     </div>
@@ -42,42 +51,44 @@ function DetailRow({ label, value }) {
 ───────────────────────────────────────────── */
 export default function SignatureCollection() {
   return (
-    <Section className="bg-black text-white overflow-hidden">
+    <Section className="overflow-hidden" style={{ background: '#141f1a', color: '#ffffff' }}>
 
       {/* ── EDITORIAL FRAME ─────────────────────────────────────────── */}
       <motion.div
         {...fadeIn(0)}
         className="
           relative
-          border border-white/[0.10]
           grid grid-cols-1 lg:grid-cols-[1fr_1.55fr]
           min-h-[540px] lg:min-h-[680px]
           mb-0
         "
+        style={{ border: '1px solid rgba(202,203,167,0.10)' }}
       >
 
         {/* Hairline corner accents — pure decoration */}
-        <span className="pointer-events-none absolute top-0 left-0 w-10 h-10 border-t border-l border-white/30" />
-        <span className="pointer-events-none absolute top-0 right-0 w-10 h-10 border-t border-r border-white/30" />
-        <span className="pointer-events-none absolute bottom-0 left-0 w-10 h-10 border-b border-l border-white/30" />
-        <span className="pointer-events-none absolute bottom-0 right-0 w-10 h-10 border-b border-r border-white/30" />
+        <span className="pointer-events-none absolute top-0 left-0 w-10 h-10 border-t border-l" style={{ borderColor: 'rgba(255,255,255,0.22)' }} />
+        <span className="pointer-events-none absolute top-0 right-0 w-10 h-10 border-t border-r" style={{ borderColor: 'rgba(255,255,255,0.22)' }} />
+        <span className="pointer-events-none absolute bottom-0 left-0 w-10 h-10 border-b border-l" style={{ borderColor: 'rgba(255,255,255,0.22)' }} />
+        <span className="pointer-events-none absolute bottom-0 right-0 w-10 h-10 border-b border-r" style={{ borderColor: 'rgba(255,255,255,0.22)' }} />
 
         {/* ── LEFT PANEL ──────────────────────────────────────────────── */}
         <div className="
           flex flex-col justify-between
           px-8 py-10
           lg:px-14 lg:py-14
-          border-b border-white/[0.08] lg:border-b-0 lg:border-r lg:border-white/[0.08]
-        ">
+          border-b lg:border-b-0 lg:border-r
+        "
+        style={{ borderColor: 'rgba(202,203,167,0.09)' }}>
 
           {/* Label */}
           <motion.p
             {...fadeUp(0.1)}
             className="
               uppercase tracking-[0.38em] text-[0.65rem]
-              text-white/35 font-light
+              font-light
               mb-auto
             "
+            style={{ color: 'rgba(255,255,255,0.55)' }}
           >
             Signature Collection
           </motion.p>
@@ -92,10 +103,11 @@ export default function SignatureCollection() {
               tracking-[-0.02em]
               mt-12 lg:mt-0
             "
+            style={{ color: '#ffffff' }}
           >
             Crafted for
             <br />
-            <em className="not-italic text-white/50">slow mornings.</em>
+            <em className="not-italic" style={{ color: 'rgba(255,255,255,0.48)' }}>slow mornings.</em>
           </motion.h2>
 
           {/* Micro year tag — editorial detail */}
@@ -104,8 +116,9 @@ export default function SignatureCollection() {
             className="
               hidden lg:block
               mt-12
-              text-[0.6rem] uppercase tracking-[0.32em] text-white/20 font-light
+              text-[0.6rem] uppercase tracking-[0.32em] font-light
             "
+            style={{ color: 'rgba(255,255,255,0.30)' }}
           >
             Est. &ensp;MMXXIV
           </motion.span>
@@ -193,19 +206,20 @@ export default function SignatureCollection() {
       {/* ── PRODUCT DETAILS BELOW FRAME ─────────────────────────────── */}
       <div className="
         grid grid-cols-1 lg:grid-cols-[1fr_1.55fr]
-        border-l border-r border-b border-white/[0.10]
         mb-0
-      ">
+      "
+      style={{ border: '1px solid rgba(202,203,167,0.10)', borderTop: 'none' }}>
 
         {/* Logo column — mirrors left panel width, visible on all sizes */}
         <motion.div
           {...fadeIn(0.1)}
           className="
             flex items-center justify-center
-            border-b border-white/[0.08] lg:border-b-0 lg:border-r lg:border-white/[0.08]
+            border-b lg:border-b-0 lg:border-r
             py-10 lg:py-0
             min-h-[120px] lg:min-h-0
           "
+          style={{ borderColor: 'rgba(202,203,167,0.09)' }}
         >
           <div className="relative w-[80px] sm:w-[100px] lg:w-[120px] xl:w-[140px] opacity-60 hover:opacity-90 transition-opacity duration-500">
             <Image
@@ -230,6 +244,7 @@ export default function SignatureCollection() {
               font-light tracking-[-0.01em]
               mb-5
             "
+            style={{ color: '#CACBA7' }}
           >
             Estate Blend
           </motion.h3>
@@ -238,11 +253,12 @@ export default function SignatureCollection() {
           <motion.p
             {...fadeUp(0.16)}
             className="
-              text-white/55 font-light leading-[1.75]
+              font-light leading-[1.75]
               text-[0.95rem]
               max-w-lg
               mb-10
             "
+            style={{ color: 'rgba(255,255,255,0.72)' }}
           >
             A balanced expression of origin, craftsmanship and patience.
             Designed for those who appreciate depth, sweetness and clarity

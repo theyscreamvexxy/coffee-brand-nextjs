@@ -51,7 +51,8 @@ export default function BrandPhilosophy() {
   const circleY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
 
   return (
-    <Section className="bg-black text-white overflow-hidden" ref={sectionRef}>
+    <div ref={sectionRef}>
+    <Section className="overflow-hidden" style={{ background: '#1a2e24', color: '#CACBA7' }}>
 
       {/* ── AMBIENT BACKGROUND GLOW ──────────────────────────────────── */}
       <motion.div
@@ -71,18 +72,20 @@ export default function BrandPhilosophy() {
 
       {/* ── TOP RULE + LABEL ─────────────────────────────────────────── */}
       <div className="mb-14 lg:mb-20">
-        <Rule className="bg-white/[0.12] mb-7" />
+        <Rule className="mb-7" style={{ background: 'var(--rule-strong)' }} />
         <div className="flex items-center justify-between">
           <motion.p
             {...fadeIn(0.1)}
-            className="uppercase tracking-[0.42em] text-[0.6rem] text-white/30 font-light"
+            className="uppercase tracking-[0.42em] text-[0.6rem] font-light"
+            style={{ color: 'var(--text-label)' }}
           >
             Our Philosophy
           </motion.p>
           {/* Right-side index notation — editorial detail */}
           <motion.span
             {...fadeIn(0.2)}
-            className="hidden sm:block text-[0.6rem] uppercase tracking-[0.3em] text-white/20 font-light"
+            className="hidden sm:block text-[0.6rem] uppercase tracking-[0.3em] font-light"
+            style={{ color: 'rgba(202,203,167,0.22)' }}
           >
             §&ensp;001
           </motion.span>
@@ -109,8 +112,8 @@ export default function BrandPhilosophy() {
                 leading-[0.87]
                 tracking-[-0.025em]
                 font-light
-                text-white/85
               "
+              style={{ color: '#CACBA7' }}
             >
               THE
               <br />
@@ -240,7 +243,7 @@ export default function BrandPhilosophy() {
       </div>
 
       {/* ── RULE BREAK ───────────────────────────────────────────────── */}
-      <Rule className="bg-white/[0.08] mb-16 lg:mb-20" />
+      <Rule className="mb-16 lg:mb-20" style={{ background: 'var(--rule-subtle)' }} />
 
       {/* ── BODY COPY — THREE BREATHING PARAGRAPHS ───────────────────── */}
       {/*
@@ -340,26 +343,26 @@ export default function BrandPhilosophy() {
 
           <div className="space-y-0">
 
-            <motion.div {...reveal(0.12)} className="pb-8 border-b border-white/[0.07]">
+            <motion.div {...reveal(0.12)} className="pb-8 border-b" style={{ borderColor: 'var(--rule-subtle)' }}>
               <p
                 className="
                   text-[1.05rem] lg:text-[1.15rem]
                   font-light leading-[1.85]
-                  text-white/65
                 "
+                style={{ color: 'rgba(170,183,154,0.80)' }}
               >
                 Every bean carries the story of a farmer,
                 a landscape, and a season.
               </p>
             </motion.div>
 
-            <motion.div {...reveal(0.22)} className="py-8 border-b border-white/[0.07]">
+            <motion.div {...reveal(0.22)} className="py-8 border-b" style={{ borderColor: 'var(--rule-subtle)' }}>
               <p
                 className="
                   text-[1.05rem] lg:text-[1.15rem]
                   font-light leading-[1.85]
-                  text-white/65
                 "
+                style={{ color: 'rgba(170,183,154,0.80)' }}
               >
                 At Forest Farmer Coffee Roasters, we honour those
                 stories through thoughtful sourcing, precision
@@ -367,13 +370,13 @@ export default function BrandPhilosophy() {
               </p>
             </motion.div>
 
-            <motion.div {...reveal(0.32)} className="pt-8 pb-8 border-b border-white/[0.07]">
+            <motion.div {...reveal(0.32)} className="pt-8 pb-8 border-b" style={{ borderColor: 'var(--rule-subtle)' }}>
               <p
                 className="
                   text-[1.05rem] lg:text-[1.15rem]
                   font-light leading-[1.85]
-                  text-white/65
                 "
+                style={{ color: 'rgba(170,183,154,0.80)' }}
               >
                 We believe exceptional coffee begins long before
                 the roast — in the forests, farms, and hands
@@ -391,8 +394,9 @@ export default function BrandPhilosophy() {
             {/* Micro label above */}
             <p className="
               uppercase tracking-[0.38em] text-[0.58rem]
-              text-white/25 font-light mb-5
-            ">
+              font-light mb-5
+            "
+            style={{ color: 'var(--text-label)' }}>
               Our Commitment
             </p>
 
@@ -427,7 +431,7 @@ export default function BrandPhilosophy() {
 
       {/* ── BOTTOM RULE + SAGE ACCENT DOT ────────────────────────────── */}
       <div className="mt-16 lg:mt-24 flex items-center gap-4">
-        <Rule className="flex-1 bg-white/[0.08]" />
+        <Rule className="flex-1" style={{ background: 'var(--rule-subtle)' }} />
         <motion.span
           {...fadeIn(0.4)}
           className="w-1.5 h-1.5 rounded-full flex-shrink-0"
@@ -436,5 +440,6 @@ export default function BrandPhilosophy() {
       </div>
 
     </Section>
+    </div>
   );
 }

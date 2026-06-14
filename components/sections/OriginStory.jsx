@@ -5,10 +5,11 @@ import { useRef, useEffect, useState } from "react";
 import Section from "@/components/layout/Section";
 
 /* ─────────────────────────────────────────────
-   The unexpected moment:
-   • Headline words SCATTER in from every axis
+   Premium unexpected moments:
+   • Headline lines emerge through masked floors
+     with kinetic blur — clean, cinematic, luxury
    • Image WIPES open from the center outward
-   • A coordinate counter counts up as you enter
+   • GPS coordinates count up live as you enter
    • Floating coordinate text drifts with parallax
 ───────────────────────────────────────────── */
 
@@ -55,35 +56,32 @@ function CoordCounter({ target, label, duration = 2 }) {
   );
 }
 
-/* ── Word scatter — each word flies in from a random direction ── */
-const scatterOrigins = [
-  { x: -120, y: -60, rotate: -8 },
-  { x: 80,  y: -90, rotate: 5 },
-  { x: -60, y: 70,  rotate: -4 },
-  { x: 100, y: 40,  rotate: 7 },
-  { x: -90, y: -40, rotate: -6 },
-  { x: 60,  y: -70, rotate: 3 },
-  { x: -40, y: 80,  rotate: -5 },
-  { x: 110, y: -30, rotate: 6 },
-  { x: -70, y: 50,  rotate: -3 },
-];
+/* ── Premium line reveal — masked curtain with kinetic blur ── */
+/*
+    FIX: whileInView on the inner hidden element is unreliable because
+    IntersectionObserver sees its transformed (off-screen) position.
+    Solution: useInView on the OUTER div (always at y:0, always detectable),
+    then drive inner motion.div with animate= so it fires correctly.
+*/
+function LineReveal({ children, delay = 0 }) {
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef, { once: true, margin: "0px 0px -40px 0px" });
 
-function ScatterWord({ word, index, delay }) {
-  const origin = scatterOrigins[index % scatterOrigins.length];
   return (
-    <motion.span
-      initial={{ opacity: 0, x: origin.x, y: origin.y, rotate: origin.rotate, filter: "blur(8px)" }}
-      whileInView={{ opacity: 1, x: 0, y: 0, rotate: 0, filter: "blur(0px)" }}
-      transition={{
-        duration: 1.1,
-        ease: [0.16, 1, 0.3, 1],
-        delay: delay + index * 0.07,
-      }}
-      viewport={{ once: true }}
-      className="inline-block"
-    >
-      {word}
-    </motion.span>
+    <div ref={containerRef} style={{ overflow: "hidden", lineHeight: "1.12" }}>
+      <motion.div
+        initial={{ y: "105%", filter: "blur(14px)", opacity: 0 }}
+        animate={
+          isInView
+            ? { y: "0%", filter: "blur(0px)", opacity: 1 }
+            : { y: "105%", filter: "blur(14px)", opacity: 0 }
+        }
+        transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay }}
+        style={{ display: "block" }}
+      >
+        {children}
+      </motion.div>
+    </div>
   );
 }
 
@@ -92,11 +90,11 @@ function ScatterWord({ word, index, delay }) {
 ───────────────────────────────────────────── */
 export default function OriginStory() {
   const sectionRef = useRef(null);
-  const imageRef = useRef(null);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"],
+    layoutEffect: false,          // prevents hydration mismatch warning
   });
 
   /* Parallax transforms */
@@ -108,7 +106,8 @@ export default function OriginStory() {
   const smoothImageY = useSpring(imageParY, { stiffness: 60, damping: 20 });
 
   return (
-    <Section className="bg-black text-white overflow-hidden" ref={sectionRef}>
+    <div ref={sectionRef}>
+    <Section className="overflow-hidden" style={{ background: '#141f1a', color: '#ffffff' }}>
 
       {/* ── AMBIENT DEEP FOREST GLOW ─────────────────────────────────── */}
       <motion.div
@@ -138,7 +137,8 @@ export default function OriginStory() {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 1.0, delay: 0.1 }}
             viewport={{ once: true }}
-            className="uppercase tracking-[0.42em] text-[0.6rem] text-white/30 font-light"
+            className="uppercase tracking-[0.42em] text-[0.6rem] font-light"
+            style={{ color: 'rgba(255,255,255,0.55)' }}
           >
             Origin Story
           </motion.p>
@@ -147,55 +147,39 @@ export default function OriginStory() {
             whileInView={{ opacity: 1 }}
             transition={{ duration: 1.0, delay: 0.2 }}
             viewport={{ once: true }}
-            className="hidden sm:block text-[0.6rem] uppercase tracking-[0.3em] text-white/20 font-light"
+            className="hidden sm:block text-[0.6rem] uppercase tracking-[0.3em] font-light"
+            style={{ color: 'rgba(255,255,255,0.30)' }}
           >
             §&ensp;003
           </motion.span>
         </div>
       </div>
 
-      {/* ── SCATTER HEADLINE — the unexpected moment ─────────────────── */}
-      <div className="mb-12 lg:mb-16 overflow-hidden">
+      {/* ── PREMIUM HEADLINE — masked line reveal ─────────────────────── */}
+      {/*
+          Each line slides up from behind an invisible overflow mask
+          while a blur sharpens simultaneously — kinetic focus effect.
+          Premium, cinematic, works perfectly on every screen size.
+      */}
+      <div className="mb-14 lg:mb-18">
         <h2
           className="
-            text-[clamp(3rem,8vw,7rem)]
-            leading-[0.9]
+            text-[clamp(2.8rem,7.5vw,7rem)]
             tracking-[-0.025em]
             font-light
-            max-w-5xl
           "
-          style={{ wordSpacing: "0.25em" }}
         >
-          {/* Each word scatters in from a different direction */}
-          {[
-            { word: "From", line: 0 },
-            { word: "\u00A0The\u00A0", line: 0 },
-            { word: "Forest,", line: 0 },
-          ].map((w, i) => (
-            <ScatterWord key={w.word} word={w.word} index={i} delay={0.05} />
-          ))}
-          <br />
-          {[
-            { word: "To\u00A0", line: 1 },
-            { word: "The\u00A0", line: 1 },
-            { word: "Fire,", line: 1 },
-          ].map((w, i) => (
-            <ScatterWord key={w.word} word={w.word} index={i + 3} delay={0.05} />
-          ))}
-          <br />
-          {[
-            { word: "To\u00A0", line: 2 },
-            { word: "The\u00A0", line: 2 },
-            { word: <span key="cup" className="font-semibold">Cup.</span>, line: 2 },
-          ].map((w, i) => (
-            <ScatterWord key={i} word={w.word} index={i + 6} delay={0.05} />
-          ))}
+          <LineReveal delay={0.05}>From The Forest,</LineReveal>
+          <LineReveal delay={0.20}>To The Fire,</LineReveal>
+          <LineReveal delay={0.35}>
+            To The{" "}<span className="font-semibold">Cup.</span>
+          </LineReveal>
         </h2>
       </div>
 
-      {/* ── WIDE LANDSCAPE IMAGE PLACEHOLDER ────────────────────────── */}
+      {/* ── WIDE LANDSCAPE IMAGE PLACEHOLDER ──────────────────── */}
       {/* Reveals as a horizontal wipe from center outward */}
-      <div ref={imageRef} className="relative mb-12 lg:mb-16 overflow-hidden" style={{ aspectRatio: "21 / 9" }}>
+      <div className="relative mb-12 lg:mb-16 overflow-hidden" style={{ aspectRatio: "21 / 9" }}>
 
         {/* The wipe reveal wrapper */}
         <motion.div
@@ -251,7 +235,7 @@ export default function OriginStory() {
             <div
               className="absolute bottom-0 inset-x-0 h-1/3"
               style={{
-                background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%)",
+                background: "linear-gradient(to top, rgba(109,133,117,0.7) 0%, transparent 100%)",
               }}
             />
           </motion.div>
@@ -277,7 +261,8 @@ export default function OriginStory() {
                 <line x1="38" y1="24" x2="47" y2="24" stroke="#CACBA7" strokeWidth="0.6" />
                 <polygon points="24,3 22,9 24,7 26,9" stroke="#CACBA7" strokeWidth="0.5" fill="none" />
               </svg>
-              <span className="text-[0.48rem] uppercase tracking-[0.4em] font-light" style={{ color: "rgba(202,203,167,0.3)" }}>
+              <span className="font-light text-[0.48rem] uppercase tracking-[0.4em]"
+                style={{ color: 'rgba(255,255,255,0.50)' }}>
                 Forest Farms
               </span>
             </div>
@@ -331,7 +316,7 @@ export default function OriginStory() {
           transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
           viewport={{ once: true }}
         >
-          <p className="text-[1.1rem] lg:text-[1.25rem] font-light leading-[1.85] text-white/65 mb-8">
+          <p className="text-[1.1rem] lg:text-[1.25rem] font-light leading-[1.85] mb-8" style={{ color: 'rgba(255,255,255,0.72)' }}>
             Coffee is more than a beverage.
             It is the story of land, craftsmanship,
             patience, and the countless hands that
@@ -344,7 +329,8 @@ export default function OriginStory() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1], delay: 0.22 }}
             viewport={{ once: true }}
-            className="text-[clamp(1.4rem,2.8vw,2.2rem)] font-semibold leading-[1.1] tracking-[-0.015em] text-white/85"
+            className="text-[clamp(1.4rem,2.8vw,2.2rem)] font-semibold leading-[1.1] tracking-[-0.015em]"
+            style={{ color: '#ffffff' }}
           >
             Every altitude,<br />every season,<br />every farmer.
           </motion.p>
@@ -379,10 +365,12 @@ export default function OriginStory() {
               key={stat.label}
               className="flex items-baseline justify-between py-4 border-b border-white/[0.07] group"
             >
-              <span className="text-[0.68rem] uppercase tracking-[0.28em] text-white/30 font-light group-hover:text-white/50 transition-colors duration-300">
+              <span className="text-[0.68rem] uppercase tracking-[0.28em] font-light group-hover:opacity-70 transition-opacity duration-300"
+                style={{ color: 'rgba(255,255,255,0.52)' }}>
                 {stat.label}
               </span>
-              <span className="text-[0.85rem] font-light text-white/65 group-hover:text-white/85 transition-colors duration-300 text-right">
+              <span className="text-[0.85rem] font-light group-hover:opacity-90 transition-opacity duration-300 text-right"
+                style={{ color: 'rgba(255,255,255,0.80)' }}>
                 {stat.value}
               </span>
             </div>
@@ -412,5 +400,6 @@ export default function OriginStory() {
       </div>
 
     </Section>
+    </div>
   );
 }

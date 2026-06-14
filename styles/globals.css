@@ -2,12 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─────────────────────────────────────────────
+   Brand Color System
+   ─────────────────────────────────────────────
+   lightSage  #CACBA7  — headlines, warm presence
+   mutedGreen #AAB79A  — body text, secondary info
+   forestSage #6D8575  — labels, accents, rules
+   deepForest #3D5757  — dark accents, borders
+   ───────────────────────────────────────────── */
 :root {
-    --color-light-sage: #CACBA7;
-    --color-muted-green: #AAB79A;
-    --color-forest-sage: #6D8575;
-    --color-deep-forest: #3D5757;
-    --color-black: #000000;
+    /* Palette */
+    --color-light-sage:    #CACBA7;
+    --color-muted-green:   #AAB79A;
+    --color-forest-sage:   #6D8575;
+    --color-deep-forest:   #3D5757;
+    --color-black:         #000000;
+
+    /* Section backgrounds — forest-tinted, not pure black */
+    --bg-philosophy:   #0f1c14;
+    --bg-signature:    #080808;
+    --bg-journey:      #0a1410;
+    --bg-origin:       #080f0a;
+
+    /* Text hierarchy */
+    --text-headline:   #CACBA7;        /* display / section titles */
+    --text-punch:      #ffffff;        /* bold moments, maximum contrast */
+    --text-body:       #AAB79A;        /* paragraphs, descriptions */
+    --text-label:      #6D8575;        /* small caps, captions, step indicators */
+    --text-ghost:      rgba(202,203,167,0.06);  /* watermarks, background glyphs */
+
+    /* Rule / border */
+    --rule-strong:     rgba(202,203,167,0.15);
+    --rule-subtle:     rgba(202,203,167,0.09);
+    --rule-accent:     #6D8575;
 }
 
 html {
@@ -16,21 +43,12 @@ html {
 
 body {
     font-family: var(--font-inter);
-    background: #000000;
-    color: #ffffff;
+    background: #1a2e24;
+    color: var(--color-light-sage);
 }
 
-
 @keyframes fogFloat {
-    0% {
-        transform: translateX(-15px) translateY(0px);
-    }
-
-    50% {
-        transform: translateX(15px) translateY(-8px);
-    }
-
-    100% {
-        transform: translateX(-15px) translateY(0px);
-    }
+    0%   { transform: translateX(-15px) translateY(0px);  }
+    50%  { transform: translateX(15px)  translateY(-8px); }
+    100% { transform: translateX(-15px) translateY(0px);  }
 }
