@@ -1,0 +1,2862 @@
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\app\api\blog\route.js
+====================================================
+// app/api/blog/route.js
+// Purpose: Next.js Route Handler for blog posts API.
+// Handles GET (list/search posts) and POST (create post — admin only).
+// Delegates business logic to blogController.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\app\api\contact\route.js
+====================================================
+// app/api/contact/route.js
+// Purpose: Next.js Route Handler for contact form submissions.
+// Handles POST requests: validates input, sends email notification, stores submission.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\app\api\products\route.js
+====================================================
+// app/api/products/route.js
+// Purpose: Next.js Route Handler for products API.
+// Handles GET (list/filter products) and POST (create product — admin only).
+// Delegates business logic to productController.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\app\api\upload\route.js
+====================================================
+// app/api/upload/route.js
+// Purpose: Next.js Route Handler for media uploads via Cloudinary.
+// Handles POST requests: receives file, signs upload, returns Cloudinary URL.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\app\gallery\page.jsx
+====================================================
+// app/gallery/page.jsx
+export default function GalleryPage() {
+    return (
+        <main>
+            <h1>Gallery</h1>
+        </main>
+    );
+}
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\app\journal\[slug]\page.jsx
+====================================================
+// app/blog/[slug]/page.jsx
+// Purpose: Individual blog post detail page.
+// Renders: hero image, article content (MDX or rich text), related posts, comments section.
+// Uses dynamic routing; slug maps to a blog post identifier.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\app\journal\page.jsx
+====================================================
+export default function JournalPage() {
+    return (
+        <main>
+            <h1>Journal</h1>
+        </main>
+    );
+}
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\app\visit\page.jsx
+====================================================
+export default function VisitPage() {
+    return (
+        <main>
+            <h1>Visit</h1>
+        </main>
+    );
+}
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\app\layout.jsx
+====================================================
+import "../styles/globals.css";
+import {
+    Inter,
+    Manrope,
+    Cormorant_Garamond,
+} from "next/font/google";
+import Navbar from "@/components/layout/Navbar";
+
+const inter = Inter({
+    subsets: ["latin"],
+    variable: "--font-inter",
+});
+
+const manrope = Manrope({
+    subsets: ["latin"],
+    variable: "--font-manrope",
+});
+
+const cormorant = Cormorant_Garamond({
+    subsets: ["latin"],
+    weight: ["300", "400", "500", "600"],
+    variable: "--font-cormorant",
+});
+
+export const metadata = {
+    title: "Forest Farmer Coffee Roasters",
+    description: "Premium specialty coffee experience",
+};
+
+export default function RootLayout({ children }) {
+    return (
+        <html lang="en">
+            <body className={`${inter.variable} ${manrope.variable} ${cormorant.variable}`}>
+                <Navbar />
+                {children}
+            </body>
+        </html>
+    );
+}
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\app\loading.jsx
+====================================================
+// app/loading.jsx
+import LogoLoader from "@/components/ui/LogoLoader";
+
+export default function Loading() {
+    return <LogoLoader />;
+}
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\app\not-found.jsx
+====================================================
+export default function NotFound() {
+    return <div>Page Not Found</div>;
+}
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\app\page.jsx
+====================================================
+import HeroFrameSequence from "@/components/hero/HeroFrameSequence";
+import BrandPhilosophy from "@/components/sections/BrandPhilosophy";
+import SignatureCollection from "@/components/sections/SignatureCollection";
+import JourneySection from "@/components/sections/JourneySection";
+import OriginStory from "@/components/sections/OriginStory";
+import Testimonials from "@/components/sections/Testimonials";
+import VisualJournal from "@/components/sections/VisualJournal";
+
+export default function Home() {
+    return (
+        <main>
+            <HeroFrameSequence />
+            <BrandPhilosophy />
+            <SignatureCollection />
+            <JourneySection />
+            <OriginStory />
+            <Testimonials />
+            <VisualJournal />
+        </main>
+    );
+}
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\animations\FadeInView.jsx
+====================================================
+// components/animations/FadeInView.jsx
+// Purpose: Scroll-triggered fade-in wrapper component.
+// Wraps any child element and animates it into view using Framer Motion whileInView.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\animations\MagneticButton.jsx
+====================================================
+// components/animations/MagneticButton.jsx
+// Purpose: Magnetic hover effect wrapper for call-to-action buttons.
+// Tracks mouse position and applies a subtle translate to the child element on hover.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\animations\ParallaxLayer.jsx
+====================================================
+// components/animations/ParallaxLayer.jsx
+// Purpose: Wrapper component that applies a parallax translate-Y offset on scroll.
+// Uses the useParallax hook; accepts a speed multiplier prop.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\animations\TextReveal.jsx
+====================================================
+// components/animations/TextReveal.jsx
+// Purpose: Word-by-word or character-by-character text reveal animation component.
+// Uses GSAP SplitText or Framer Motion staggered children variants.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\blog\BlogCard.jsx
+====================================================
+// components/blog/BlogCard.jsx
+// Purpose: Summary card for a single blog post.
+// Displays: thumbnail, category badge, title, excerpt, author, read-time, date.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\blog\BlogGrid.jsx
+====================================================
+// components/blog/BlogGrid.jsx
+// Purpose: Responsive grid layout that renders a list of BlogCard components.
+// Handles empty state and loading skeleton fallback.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\blog\BlogHero.jsx
+====================================================
+// components/blog/BlogHero.jsx
+// Purpose: Full-width hero banner displayed at the top of the blog listing page.
+// Shows the featured post prominently with overlay text and CTA.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\blog\CategoryFilter.jsx
+====================================================
+// components/blog/CategoryFilter.jsx
+// Purpose: Pill-style category filter bar for the blog listing page.
+// Clicking a category updates the displayed posts without a full page reload.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\gallery\GalleryGrid.jsx
+====================================================
+// components/gallery/GalleryGrid.jsx
+// Purpose: Masonry or CSS-grid gallery layout rendering GalleryItem components.
+// Supports lightbox open/close interaction and infinite scroll or pagination.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\gallery\GalleryItem.jsx
+====================================================
+// components/gallery/GalleryItem.jsx
+// Purpose: Individual gallery image item with hover zoom and caption overlay.
+// On click, opens the Lightbox component.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\gallery\Lightbox.jsx
+====================================================
+// components/gallery/Lightbox.jsx
+// Purpose: Full-screen image lightbox overlay.
+// Supports keyboard navigation (arrow keys / Esc), swipe gestures, and animated open/close transitions.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\hero\HeroFrameSequence.jsx
+====================================================
+// components/hero/HeroFrameSequence.jsx
+"use client";
+
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useEffect, useRef, useState } from "react";
+
+gsap.registerPlugin(ScrollTrigger);
+
+export default function HeroFrameSequence() {
+
+    const [loadingProgress, setLoadingProgress] = useState(0);
+    const [showLoader, setShowLoader] = useState(true);
+    const [minTimePassed, setMinTimePassed] = useState(false);
+    const [loaderPhase, setLoaderPhase] = useState("loading");
+    const [logoScale, setLogoScale] = useState(1);
+    const [portalWidth, setPortalWidth] = useState(0);
+    const [portalHeight, setPortalHeight] = useState(8);
+    const [heroReveal, setHeroReveal] = useState(false);
+    const [portalGreen, setPortalGreen] = useState(false);
+    const [loaderOpacity, setLoaderOpacity] = useState(1);
+
+
+    const framesReady = loadingProgress === 100;
+
+    useEffect(() => {
+
+        if (!framesReady || !minTimePassed) return;
+
+        setLoaderPhase("filled");
+
+    }, [framesReady, minTimePassed]);
+
+    useEffect(() => {
+
+        if (loaderPhase !== "filled") return;
+
+        const timer = setTimeout(() => {
+            setLoaderPhase("expanding");
+        }, 500);
+
+        return () => clearTimeout(timer);
+
+    }, [loaderPhase]);
+
+    useEffect(() => {
+
+        if (loaderPhase !== "expanding") return;
+
+        requestAnimationFrame(() => {
+            setLogoScale(150);
+        });
+
+        const timer = setTimeout(() => {
+            setLoaderPhase("portal");
+        }, 10);
+
+        return () => clearTimeout(timer);
+
+    }, [loaderPhase]);
+
+    useEffect(() => {
+
+        if (loaderPhase !== "portal") return;
+
+        requestAnimationFrame(() => {
+            setPortalWidth(100);
+        });
+
+        const openTimer = setTimeout(() => {
+            setPortalGreen(true);
+            setPortalHeight(window.innerHeight);
+        }, 1200);
+
+
+
+        const revealTimer = setTimeout(() => {
+            setHeroReveal(true);
+            setLoaderOpacity(0);
+
+            setTimeout(() => {
+                setShowLoader(false);
+            }, 600);
+        }, 4200);
+
+        return () => {
+            clearTimeout(openTimer);
+            clearTimeout(revealTimer);
+        };
+
+    }, [loaderPhase]);
+
+    const canvasRef = useRef(null);
+    const sectionRef = useRef(null);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setMinTimePassed(true);
+        }, 3000);
+
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext("2d");
+
+        const frameCount = 240;
+        let imagesLoaded = 0;
+        const totalFrames = frameCount;
+
+        const images = [];
+
+        const frames = Array.from(
+            { length: frameCount },
+            (_, i) =>
+                `/frames/hero/ezgif-frame-${String(i + 1).padStart(3, "0")}.jpg`
+        );
+        const sequence = {
+            frame: 0,
+        };
+
+        let currentFrame = 0;
+
+        // --- renderFrame declared FIRST ---------------------------------------
+        // Must be defined before resizeCanvas, which calls it.
+        //
+        // FIX 1 — guard against unloaded images:
+        // The original guard `if (!image) return` only checked existence.
+        // A `new Image()` object is always truthy, even before it has loaded.
+        // Calling ctx.drawImage on an unloaded image produces image.naturalWidth
+        // === 0, which makes imageAspect = NaN, and all draw dimensions NaN.
+        // ctx.drawImage with NaN parameters silently draws nothing — canvas
+        // stays black with no error thrown. The fix: also require naturalWidth
+        // > 0, which is only true once the image has fully decoded.
+        const renderFrame = (index) => {
+            const image = images[index];
+
+            // Guard: image must exist AND be fully decoded.
+            // A `new Image()` is always truthy before it loads, so the original
+            // `if (!image) return` was insufficient. An unloaded image has
+            // naturalWidth === 0, which produces NaN geometry in the cover-fit
+            // math and causes ctx.drawImage to silently draw nothing.
+            if (!image || !image.naturalWidth) return;
+
+            ctx.clearRect(
+                0,
+                0,
+                window.innerWidth,
+                window.innerHeight
+            );
+
+            const imageAspect = image.naturalWidth / image.naturalHeight;
+            const viewportWidth = window.innerWidth;
+            const viewportHeight = window.innerHeight;
+
+            const canvasAspect =
+                viewportWidth / viewportHeight;
+
+            let drawWidth;
+            let drawHeight;
+            let offsetX;
+            let offsetY;
+
+            if (imageAspect > canvasAspect) {
+                drawHeight = viewportHeight;
+                drawWidth = drawHeight * imageAspect;
+                offsetX = (viewportWidth - drawWidth) / 2;
+                offsetY = 0;
+            } else {
+                drawWidth = viewportWidth;
+                drawHeight = drawWidth / imageAspect;
+                offsetX = 0;
+                offsetY = (viewportHeight - drawHeight) / 2;
+            }
+
+            ctx.drawImage(
+                image,
+                offsetX,
+                offsetY,
+                drawWidth,
+                drawHeight
+            );
+        };
+        // ---------------------------------------------------------------------
+
+        // --- canvas sizing helpers ----------------------------------------------
+        //
+        // Responsibilities are split deliberately:
+        //
+        //   applyDPR()      — resizes the canvas bitmap and resets the context
+        //                     transform for the current devicePixelRatio.
+        //                     Does NOT draw a frame. Safe to call any time.
+        //
+        //   resizeCanvas()  — called by the window 'resize' listener.
+        //                     Only calls applyDPR(). Frame redraw is intentionally
+        //                     NOT done here; it is handled by ScrollTrigger's
+        //                     onRefresh callback (below) which fires after GSAP
+        //                     has finished recalculating pin-spacer heights,
+        //                     trigger start/end positions, and scroll-progress.
+        //
+        //                     If we drew a frame here (in the resize listener)
+        //                     we would race against ScrollTrigger's deferred
+        //                     refresh: resizeCanvas runs synchronously with the
+        //                     resize event while ScrollTrigger.refresh() runs in
+        //                     a subsequent RAF. Whichever runs last wins, and the
+        //                     loser's frame draw is computed against stale pin
+        //                     geometry — producing the wrong frame or wrong
+        //                     viewport scale.
+        const applyDPR = () => {
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            canvas.style.width = `${window.innerWidth}px`;
+            canvas.style.height = `${window.innerHeight}px`;
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.scale(dpr, dpr);
+        };
+
+        const resizeCanvas = () => {
+            // Resize the bitmap only. onRefresh redraws the frame once
+            // ScrollTrigger has updated its scroll metrics.
+            applyDPR();
+        };
+
+        // FIX: initialise frame 0 BEFORE calling resizeCanvas.
+        // Previously frame 0 was set up well after resizeCanvas() was called,
+        // so images[0] was always undefined on the first draw attempt.
+        // Moving it here means cached images are available immediately and
+        // resizeCanvas() can draw frame 0 on the very first call.
+        //
+        // onload MUST be assigned before .src — safe async-load path.
+        const frame0 = new Image();
+        images[0] = frame0;
+        frame0.onload = () => renderFrame(0);
+        frame0.src = frames[0];
+        // Belt-and-suspenders for synchronous cache hits.
+        if (frame0.complete && frame0.naturalWidth > 0) renderFrame(0);
+
+        // --- initial canvas setup ----------------------------------------------
+        // applyDPR() sizes the canvas for the current viewport. We call it once
+        // here (not resizeCanvas, which skips the frame draw on purpose) and
+        // then immediately try to draw frame 0 in case it is already cached.
+        applyDPR();
+        renderFrame(0);                 // no-op if frame0 not yet decoded
+        window.addEventListener("resize", resizeCanvas);
+
+        const preloadImage = (index) => {
+            const img = new Image();
+
+            img.onload = () => {
+                imagesLoaded++;
+
+                setLoadingProgress(
+                    Math.round(
+                        (imagesLoaded / totalFrames) * 100
+                    )
+                );
+            };
+
+            img.src = frames[index];
+
+            images[index] = img;
+        };
+
+        // Start from i=1 — frame 0 has its own dedicated Image object above.
+        for (let i = 1; i < frameCount; i++) {
+            preloadImage(i);
+        }
+
+        // Store the tween so we can kill it in the cleanup below.
+        const tween = gsap.to(sequence, {
+            frame: frameCount - 1,
+            ease: "none",
+            onUpdate: () => {
+                const frame = Math.round(sequence.frame);
+
+                if (frame === currentFrame) return;
+
+                currentFrame = frame;
+
+                renderFrame(frame);
+            },
+            scrollTrigger: {
+                trigger: sectionRef.current,
+                start: "top top",
+                end: "+=700",
+                scrub: true,
+                pin: true,
+                // onRefresh fires after every ScrollTrigger.refresh():
+                //   • the initial internal refresh that runs during setup
+                //   • subsequent window-resize recalculations
+                // This ensures the correct frame is always drawn after a layout
+                // recalc — including frame 0 at progress=0 on page load, which
+                // onUpdate's dedup guard would otherwise silently skip.
+                onRefresh: (self) => {
+                    const frame = Math.round(
+                        self.progress * (frameCount - 1)
+                    );
+                    currentFrame = frame;
+                    renderFrame(frame);
+                },
+            },
+        });
+
+        // --- cleanup ----------------------------------------------------------
+        //
+        // ORDER MATTERS — we must kill the ScrollTrigger BEFORE killing the
+        // tween, and we must do both BEFORE React commits its DOM deletions.
+        //
+        // Why tween.kill() alone is insufficient:
+        //   GSAP's pin:true physically moves sectionRef.current into a new
+        //   <div class="pin-spacer"> that GSAP inserts into the real DOM.
+        //   React's fiber tree still records the ORIGINAL parent.
+        //   Per GSAP docs: "Killing the ScrollTrigger kills the animation.
+        //   Killing the animation does NOT kill the ScrollTrigger."
+        //   So tween.kill() removes the animation but leaves the pin-spacer
+        //   in place. React then calls originalParent.removeChild(section),
+        //   but the section is inside pin-spacer, not originalParent ?
+        //   NotFoundError: "The node to be removed is not a child of this node."
+        //
+        // tween.scrollTrigger.kill() reverts the pin: removes pin-spacer,
+        // moves section back to its original parent, and kills the animation.
+        // The subsequent tween.kill() is a safe no-op.
+        return () => {
+            clearTimeout(timer);
+
+            window.removeEventListener("resize", resizeCanvas);
+            tween.scrollTrigger?.kill(); // reverts pin-spacer DOM changes first
+            tween.kill();               // safe no-op; belt-and-suspenders
+        };
+
+
+    }, []);
+
+
+
+    return (
+        <>
+            {showLoader && (
+                <div
+                    className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#7A8B78]"
+                    style={{
+                        opacity: loaderOpacity,
+                        transition: "opacity 0.6s ease",
+                    }}
+                >
+
+                    <div
+                        className="relative w-[180px] h-[260px]"
+                        style={{
+                            transform: `scale(${logoScale})`,
+                            transformOrigin: "center center",
+                            transition: "transform 2.2s cubic-bezier(0.22, 1, 0.36, 1)",
+                        }}
+                    >
+
+                        <img
+                            src="/images/brand/logo.png"
+                            alt="Forest Farmer"
+                            className="absolute inset-0 w-full h-full object-contain opacity-20"
+                            style={{
+                                transform: "translateY(5px)",
+                            }}
+                        />
+
+                        <div
+                            className="absolute inset-0 overflow-hidden"
+                            style={{
+                                clipPath: `inset(${100 - loadingProgress}% 0 0 0)`,
+                            }}
+                        >
+                            <img
+                                src="/images/brand/logo.png"
+                                alt="Forest Farmer"
+                                className="absolute inset-0 w-full h-full object-contain"
+                                style={{
+                                    transform: "translateY(5px)",
+                                }}
+                            />
+                        </div>
+
+
+
+                    </div>
+                    {loaderPhase === "portal" && (
+                        <>
+
+                            <div
+
+                                className="absolute left-1/2 top-1/2"
+
+                                style={{
+
+                                    width: `${portalWidth}vw`,
+
+                                    height: `${portalHeight}px`,
+
+                                    backgroundColor: heroReveal
+                                        ? "transparent"
+                                        : portalGreen
+                                            ? "#4E5B4A"
+                                            : "white",
+                                    filter: portalGreen ? "blur(120px)" : "blur(80px)",
+
+                                    transform: "translate(-50%, -50%)",
+
+                                    transition: "width 1.2s cubic-bezier(0.22,1,0.36,1), height 1.2s cubic-bezier(0.22,1,0.36,1), background-color 2s ease",
+
+                                }}
+
+                            />
+                            {portalGreen && (
+                                <div
+                                    className="absolute inset-0 pointer-events-none"
+                                    style={{
+                                        background:
+                                            "radial-gradient(circle at 30% 40%, rgba(255,255,255,0.15), transparent 40%), radial-gradient(circle at 70% 60%, rgba(255,255,255,0.12), transparent 45%), radial-gradient(circle at 50% 50%, rgba(255,255,255,0.08), transparent 50%)",
+                                        filter: "blur(80px)",
+                                        opacity: 0.35,
+                                        animation: "fogFloat 6s ease-in-out infinite",
+                                    }}
+                                />
+                            )}
+
+                            {portalGreen && !heroReveal && (
+                                <div
+                                    className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
+                                    style={{
+                                        transform: "translateY(-50px)",
+                                    }}
+                                >
+                                    <h1
+                                        style={{
+                                            color: "#ffffff",
+                                            fontFamily: "var(--font-cormorant)",
+                                            fontSize: "clamp(2.8rem, 5vw, 4.5rem)",
+                                            fontWeight: 500,
+                                            letterSpacing: "0.22em",
+                                            textTransform: "uppercase",
+                                            textAlign: "center",
+                                        }}
+                                    >
+                                        FOREST FARMER
+                                    </h1>
+
+                                    <p
+                                        style={{
+                                            color: "rgba(255,255,255,0.75)",
+                                            marginTop: "24px",
+                                            fontSize: "clamp(0.95rem, 1.2vw, 1.1rem)",
+                                            letterSpacing: "0.12em",
+                                            textAlign: "center",
+                                            maxWidth: "700px",
+                                        }}
+                                    >
+                                        COFFEE ROASTER
+                                    </p>
+                                </div>
+                            )}
+
+                        </>
+                    )}
+
+                </div>
+
+
+
+
+            )}
+
+            <section
+                ref={sectionRef}
+                className="relative h-[110vh] w-full overflow-hidden"
+            >
+                <canvas
+                    ref={canvasRef}
+                    className="absolute top-0 left-0 w-screen h-screen"
+
+                />
+            </section>
+        </>
+    );
+}
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\hero\HeroSection.jsx
+====================================================
+// components/hero/HeroSection.jsx
+// Purpose: Full-screen hero section for the home page.
+// Layers: background video/image, frame-sequence animation, headline, subheadline, CTA button.
+// Orchestrates GSAP timeline for entrance animation sequence.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\hero\HeroText.jsx
+====================================================
+// components/hero/HeroText.jsx
+// Purpose: Animated hero headline and subheadline block.
+// Characters or words animate in using GSAP SplitText or Framer Motion variants.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\hero\ScrollIndicator.jsx
+====================================================
+// components/hero/ScrollIndicator.jsx
+// Purpose: Animated scroll-down cue shown at the bottom of the hero section.
+// Fades out automatically once the user begins scrolling.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\layout\Container.jsx
+====================================================
+export default function Container({ children, className = "" }) {
+    return (
+        <div
+            className={`max-w-content mx-auto px-6 md:px-8 lg:px-12 ${className}`}
+        >
+            {children}
+        </div>
+    );
+}
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\layout\Footer.jsx
+====================================================
+// components/layout/Footer.jsx
+// Purpose: Site-wide footer component.
+// Includes: brand logo, nav links, social media icons, newsletter signup, copyright notice.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\layout\Navbar.jsx
+====================================================
+import Link from "next/link";
+import Image from "next/image";
+export default function Navbar() {
+    return (
+        <nav className="fixed top-0 left-0 w-full z-50 border-b border-white/10">
+            <div className="max-w-[1440px] mx-auto px-8 lg:px-12">
+                <div className="h-24 flex items-center justify-between">
+
+                    {/* Logo */}
+                    <div className="flex items-center">
+                        <Image
+                            src="/images/brand/logo.png"
+                            alt="Forest Farmer Coffee Roasters"
+                            width={70}
+                            height={70}
+                            priority
+                        />
+                    </div>
+
+                    {/* Navigation */}
+                    <div className="hidden md:flex items-center gap-10 text-sm tracking-wide">
+                        <Link href="/journal">Journal</Link>
+                        <Link href="/gallery">Gallery</Link>
+                        <Link href="/visit">Visit</Link>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+    );
+}
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\layout\PageWrapper.jsx
+====================================================
+// components/layout/PageWrapper.jsx
+// Purpose: Generic page wrapper providing consistent padding, max-width, and entrance animations.
+// Wraps all page-level content for layout consistency.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\layout\Section.jsx
+====================================================
+import Container from "./Container";
+
+export default function Section({
+    children,
+    className = "",
+    containerClassName = "",
+}) {
+    return (
+        <section className={`py-section ${className}`}>
+            <Container className={containerClassName}>
+                {children}
+            </Container>
+        </section>
+    );
+}
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\layout\SectionWrapper.jsx
+====================================================
+// components/layout/SectionWrapper.jsx
+// Purpose: Reusable wrapper for individual page sections.
+// Provides consistent vertical spacing, optional background variants, and scroll-trigger animation hooks.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\menu\MenuItemCard.jsx
+====================================================
+// components/menu/MenuItemCard.jsx
+// Purpose: Individual menu item card.
+// Displays: name, description, price, dietary tags (vegan, gluten-free), and optional image.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\menu\MenuSection.jsx
+====================================================
+// components/menu/MenuSection.jsx
+// Purpose: A single category block within the menu page (e.g., "Hot Drinks").
+// Renders a section heading and a list of MenuItemCard components.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\menu\MenuTabs.jsx
+====================================================
+// components/menu/MenuTabs.jsx
+// Purpose: Tab navigation bar for switching between menu categories on the menu page.
+// Animates the active tab indicator with Framer Motion layout animations.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\navigation\Breadcrumb.jsx
+====================================================
+// components/navigation/Breadcrumb.jsx
+// Purpose: Page breadcrumb trail component.
+// Dynamically builds breadcrumb from the current route pathname using usePathname.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\navigation\MobileMenu.jsx
+====================================================
+// components/navigation/MobileMenu.jsx
+// Purpose: Slide-in mobile navigation drawer.
+// Triggered by the hamburger button in Navbar; animates open/close with Framer Motion.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\navigation\NavLinks.jsx
+====================================================
+// components/navigation/NavLinks.jsx
+// Purpose: Desktop horizontal navigation link list.
+// Maps over a nav config array and renders styled anchor/Link elements with active-state indicators.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\sections\AboutPreview.jsx
+====================================================
+// components/sections/AboutPreview.jsx
+// Purpose: Brief brand story teaser section on the home page.
+// Links through to the full /about page. Includes an animated image and text reveal.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\sections\BrandPhilosophy.jsx
+====================================================
+"use client";
+
+import Image from "next/image";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import Section from "@/components/layout/Section";
+
+/* ---------------------------------------------
+   Animation helpers
+--------------------------------------------- */
+const reveal = (delay = 0, y = 22) => ({
+    initial: { opacity: 0, y },
+    whileInView: { opacity: 1, y: 0 },
+    transition: { duration: 1.05, ease: [0.22, 1, 0.36, 1], delay },
+    viewport: { once: true },
+});
+
+const fadeIn = (delay = 0) => ({
+    initial: { opacity: 0 },
+    whileInView: { opacity: 1 },
+    transition: { duration: 1.2, ease: "easeOut", delay },
+    viewport: { once: true },
+});
+
+/* ---------------------------------------------
+   Thin sage rule
+--------------------------------------------- */
+function Rule({ className = "" }) {
+    return (
+        <motion.div
+            initial={{ scaleX: 0, opacity: 0 }}
+            whileInView={{ scaleX: 1, opacity: 1 }}
+            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true }}
+            style={{ transformOrigin: "left center" }}
+            className={`h-px ${className}`}
+        />
+    );
+}
+
+/* ---------------------------------------------
+   Main component
+--------------------------------------------- */
+export default function BrandPhilosophy() {
+    const sectionRef = useRef(null);
+
+    /* Subtle parallax on the large ambient circle */
+    const { scrollYProgress } = useScroll({
+        target: sectionRef,
+        offset: ["start end", "end start"],
+    });
+    const circleY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
+
+    return (
+        <div ref={sectionRef}>
+            <Section className="overflow-hidden" style={{ background: '#1a2e24', color: '#CACBA7' }}>
+
+                {/* -- AMBIENT BACKGROUND GLOW ------------------------------------ */}
+                <motion.div
+                    aria-hidden
+                    style={{ y: circleY }}
+                    className="pointer-events-none absolute inset-0 flex items-center justify-end overflow-hidden"
+                >
+                    <div
+                        className="w-[700px] h-[700px] rounded-full opacity-[0.045]"
+                        style={{
+                            background:
+                                "radial-gradient(circle, #CACBA7 0%, #6D8575 50%, transparent 75%)",
+                            transform: "translateX(30%)",
+                        }}
+                    />
+                </motion.div>
+
+                {/* -- TOP RULE + LABEL ------------------------------------------- */}
+                <div className="mb-14 lg:mb-20">
+                    <Rule className="mb-7" style={{ background: 'var(--rule-strong)' }} />
+                    <div className="flex items-center justify-between">
+                        <motion.p
+                            {...fadeIn(0.1)}
+                            className="uppercase tracking-[0.42em] text-[0.6rem] font-light"
+                            style={{ color: 'var(--text-label)' }}
+                        >
+                            Our Philosophy
+                        </motion.p>
+                        {/* Right-side index notation — editorial detail */}
+                        <motion.span
+                            {...fadeIn(0.2)}
+                            className="hidden sm:block text-[0.6rem] uppercase tracking-[0.3em] font-light"
+                            style={{ color: 'rgba(202,203,167,0.22)' }}
+                        >
+                            §&ensp;001
+                        </motion.span>
+                    </div>
+                </div>
+
+                {/* -- MANIFESTO HEADLINE ----------------------------------------- */}
+                {/*
+          Two-weight tension:
+          Light = "THE FOREST DOESN'T GROW COFFEE."  — statement of fact, cool
+          Heavy = "PEOPLE DO."                         — the truth, warm, grounded
+      */}
+                {/* -- MANIFESTO HEADLINE + RIGHT IMAGE --------------------------- */}
+                <div className="mb-20 lg:mb-28 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+
+                    {/* LEFT — the manifesto text */}
+                    <div className="flex flex-col justify-between">
+
+                        <div className="overflow-hidden">
+                            <motion.h2
+                                {...reveal(0.08, 40)}
+                                className="
+                text-[clamp(3.2rem,7.5vw,8.5rem)]
+                leading-[0.87]
+                tracking-[-0.025em]
+                font-light
+              "
+                                style={{ color: '#CACBA7' }}
+                            >
+                                THE
+                                <br />
+                                FOREST
+                                <br />
+                                DOESN&apos;T
+                                <br />
+                                GROW
+                                <br />
+                                COFFEE.
+                            </motion.h2>
+                        </div>
+
+                        {/* Sage accent rule */}
+                        <motion.div
+                            initial={{ width: 0, opacity: 0 }}
+                            whileInView={{ width: "4rem", opacity: 1 }}
+                            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.32 }}
+                            viewport={{ once: true }}
+                            className="my-6 lg:my-8 h-px"
+                            style={{ background: "#6D8575" }}
+                        />
+
+                        <div className="overflow-hidden">
+                            <motion.h2
+                                {...reveal(0.38, 40)}
+                                className="
+                text-[clamp(3.2rem,7.5vw,8.5rem)]
+                leading-[0.87]
+                tracking-[-0.025em]
+                font-semibold
+                text-white
+              "
+                            >
+                                PEOPLE
+                                <br />
+                                DO.
+                            </motion.h2>
+                        </div>
+
+                    </div>
+
+                    <motion.div
+                        {...fadeIn(0.2)}
+                        className="relative w-full overflow-hidden min-h-[320px] lg:min-h-0"
+                    >
+                        <Image
+                            src="/images/coffee/roasting.png"
+                            alt="Coffee Roasting"
+                            fill
+                            className="object-cover"
+                        />
+                    </motion.div>
+                </div>
+
+                {/* -- RULE BREAK ------------------------------------------------- */}
+                <Rule className="mb-16 lg:mb-20" style={{ background: 'var(--rule-subtle)' }} />
+
+                {/* -- BODY COPY — THREE BREATHING PARAGRAPHS --------------------- */}
+                {/*
+          Grid: left column is intentionally empty on desktop —
+          the body copy is right-offset, creating asymmetric negative space
+          that echoes the headline's left dominance.
+      */}
+                <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-10 lg:gap-16 items-start">
+
+                    <motion.div
+                        {...fadeIn(0.14)}
+                        className="relative w-full overflow-hidden"
+                        style={{ aspectRatio: "4 / 5" }}
+                    >
+                        <Image
+                            src="/images/coffee/beans-macro.png"
+                            alt="Roasting Process"
+                            fill
+                            className="object-cover"
+                        />
+                    </motion.div>
+
+                    {/* Body paragraphs + bold statement */}
+                    <div className="flex flex-col h-full">
+
+                        <div className="space-y-0">
+
+                            <motion.div {...reveal(0.12)} className="pb-8 border-b" style={{ borderColor: 'var(--rule-subtle)' }}>
+                                <p
+                                    className="
+                  text-[1.05rem] lg:text-[1.15rem]
+                  font-light leading-[1.85]
+                "
+                                    style={{ color: 'rgba(170,183,154,0.80)' }}
+                                >
+                                    Every bean carries the story of a farmer,
+                                    a landscape, and a season.
+                                </p>
+                            </motion.div>
+
+                            <motion.div {...reveal(0.22)} className="py-8 border-b" style={{ borderColor: 'var(--rule-subtle)' }}>
+                                <p
+                                    className="
+                  text-[1.05rem] lg:text-[1.15rem]
+                  font-light leading-[1.85]
+                "
+                                    style={{ color: 'rgba(170,183,154,0.80)' }}
+                                >
+                                    At Forest Farmer Coffee Roasters, we honour those
+                                    stories through thoughtful sourcing, precision
+                                    roasting, and an unwavering respect for origin.
+                                </p>
+                            </motion.div>
+
+                            <motion.div {...reveal(0.32)} className="pt-8 pb-8 border-b" style={{ borderColor: 'var(--rule-subtle)' }}>
+                                <p
+                                    className="
+                  text-[1.05rem] lg:text-[1.15rem]
+                  font-light leading-[1.85]
+                "
+                                    style={{ color: 'rgba(170,183,154,0.80)' }}
+                                >
+                                    We believe exceptional coffee begins long before
+                                    the roast — in the forests, farms, and hands
+                                    that nurture it.
+                                </p>
+                            </motion.div>
+
+                        </div>
+
+                        {/* -- BOLD PULL STATEMENT — fills empty space below paragraphs -- */}
+                        <motion.div
+                            {...reveal(0.44, 30)}
+                            className="mt-10 lg:mt-auto lg:pt-12"
+                        >
+                            {/* Micro label above */}
+                            <p className="
+              uppercase tracking-[0.38em] text-[0.58rem]
+              font-light mb-5
+            "
+                                style={{ color: 'var(--text-label)' }}>
+                                Our Commitment
+                            </p>
+
+                            <h3
+                                className="
+                text-[clamp(2rem,4.2vw,4.2rem)]
+                leading-[0.88]
+                tracking-[-0.025em]
+                font-bold
+                text-white
+              "
+                            >
+                                ROOTED
+                                <br />
+                                IN RESPECT.
+                            </h3>
+
+                            {/* Sage underline accent */}
+                            <motion.div
+                                initial={{ width: 0, opacity: 0 }}
+                                whileInView={{ width: "3rem", opacity: 1 }}
+                                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.6 }}
+                                viewport={{ once: true }}
+                                className="mt-5 h-px"
+                                style={{ background: "#6D8575" }}
+                            />
+                        </motion.div>
+
+                    </div>
+
+                </div>
+
+                {/* -- BOTTOM RULE + SAGE ACCENT DOT ------------------------------ */}
+                <div className="mt-16 lg:mt-24 flex items-center gap-4">
+                    <Rule className="flex-1" style={{ background: 'var(--rule-subtle)' }} />
+                    <motion.span
+                        {...fadeIn(0.4)}
+                        className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                        style={{ background: "#6D8575" }}
+                    />
+                </div>
+
+            </Section >
+        </div >
+    );
+}
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\sections\FeaturedCoffee.jsx
+====================================================
+// components/sections/FeaturedCoffee.jsx
+// Purpose: Home page section showcasing featured / signature coffee products.
+// Renders a horizontal scroll or grid of CoffeeCard components with parallax effects.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\sections\JourneySection.jsx
+====================================================
+"use client";
+
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
+import Image from "next/image";
+import Section from "@/components/layout/Section";
+
+/* ---------------------------------------------
+   Steps — all original copy preserved + enriched
+--------------------------------------------- */
+const steps = [
+    {
+        number: "01",
+        title: "Origin",
+        subheading: "Where every\ncup is born.",
+        text: "Coffee begins with people, not machines. Every harvest carries the character of its land, climate and caretakers.",
+        details: [
+            { label: "Altitude", value: "1,400 – 2,200 m" },
+            { label: "Harvest", value: "Hand-picked, selective" },
+            { label: "Region", value: "Forest Farms, Ethiopia" },
+        ],
+        image: "/images/coffee/farmer.png",
+        imageDims: "1200 × 1500 px",
+        gradientFrom: "#4a3728", gradientMid: "#7a5c3e", gradientTo: "#b08a60",
+        grainAngle: "145deg",
+        label: "ORIGIN · FARM",
+        /* Geometric: compass rose — the "where" of origin */
+        Shape: CompassShape,
+    },
+    {
+        number: "02",
+        title: "Selection",
+        subheading: "Only the finest\nmake it through.",
+        text: "Only exceptional cherries become exceptional coffee. Quality starts long before roasting ever begins.",
+        details: [
+            { label: "Grade", value: "Specialty, SCA 85+" },
+            { label: "Method", value: "Visual + density sort" },
+            { label: "Rejection rate", value: "Up to 60% discarded" },
+        ],
+        image: "/images/coffee/beans-macro.png",
+        imageDims: "1200 × 1500 px",
+        gradientFrom: "#3D5757", gradientMid: "#5c4040", gradientTo: "#8a5050",
+        grainAngle: "110deg",
+        label: "SELECTION · CHERRY",
+        /* Geometric: concentric hexagons — cell structure of a cherry */
+        Shape: HexagonShape,
+    },
+    {
+        number: "03",
+        title: "Roasting",
+        subheading: "Heat into\ncharacter.",
+        text: "Precision transforms potential into character. Every second influences flavour, aroma and balance.",
+        details: [
+            { label: "Temperature", value: "185 – 220 °C" },
+            { label: "Duration", value: "10 – 14 minutes" },
+            { label: "Profile", value: "Artisan drum roast" },
+        ],
+        image: "/images/coffee/brewing.png",
+        imageDims: "1200 × 1500 px",
+        gradientFrom: "#1a1a1a", gradientMid: "#3a2e1e", gradientTo: "#5a4020",
+        grainAngle: "160deg",
+        label: "ROASTING · HEAT",
+        /* Geometric: radiating arcs — heat waves from a point source */
+        Shape: HeatShape,
+    },
+    {
+        number: "04",
+        title: "Brewing",
+        subheading: "The quiet\nritual of taste.",
+        text: "The final expression of every decision before it. A quiet ritual that brings the journey full circle.",
+        details: [
+            { label: "Ratio", value: "1 : 15  coffee to water" },
+            { label: "Temperature", value: "91 – 94 °C" },
+            { label: "Method", value: "Pour-over · Immersion" },
+        ],
+        image: "/images/coffee/cup.png",
+        imageDims: "1200 × 1500 px",
+        gradientFrom: "#3D5757", gradientMid: "#6D8575", gradientTo: "#AAB79A",
+        grainAngle: "125deg",
+        label: "BREWING · CUP",
+        /* Geometric: concentric rings with drop — ripple in a cup */
+        Shape: RippleShape,
+    },
+];
+
+/* ---------------------------------------------
+   Geometric SVG shapes — hollow, editorial
+--------------------------------------------- */
+
+function CompassShape() {
+    /* Compass rose — cardinal directions, the "where" of origin */
+    return (
+        <svg width="180" height="180" viewBox="0 0 180 180" fill="none" className="opacity-[0.11]">
+            <circle cx="90" cy="90" r="88" stroke="#CACBA7" strokeWidth="0.6" />
+            <circle cx="90" cy="90" r="60" stroke="#CACBA7" strokeWidth="0.4" />
+            <circle cx="90" cy="90" r="32" stroke="#CACBA7" strokeWidth="0.4" />
+            <circle cx="90" cy="90" r="4" stroke="#CACBA7" strokeWidth="0.8" />
+            {/* Cardinal spokes */}
+            {[0, 45, 90, 135].map((angle) => (
+                <g key={angle} transform={`rotate(${angle} 90 90)`}>
+                    <line x1="90" y1="2" x2="90" y2="58" stroke="#CACBA7" strokeWidth="0.5" />
+                    <line x1="90" y1="122" x2="90" y2="178" stroke="#CACBA7" strokeWidth="0.5" />
+                </g>
+            ))}
+            {/* N pointer */}
+            <polygon points="90,10 86,30 90,26 94,30" stroke="#CACBA7" strokeWidth="0.6" fill="none" />
+        </svg>
+    );
+}
+
+function HexagonShape() {
+    /* Concentric hexagons — cherry cell structure */
+    const hex = (cx, cy, r) => {
+        const pts = [];
+        for (let i = 0; i < 6; i++) {
+            const a = (Math.PI / 180) * (60 * i - 30);
+            pts.push(`${cx + r * Math.cos(a)},${cy + r * Math.sin(a)}`);
+        }
+        return pts.join(" ");
+    };
+    return (
+        <svg width="180" height="180" viewBox="0 0 180 180" fill="none" className="opacity-[0.11]">
+            {[85, 64, 44, 26, 10].map((r, i) => (
+                <polygon key={r} points={hex(90, 90, r)} stroke="#CACBA7" strokeWidth={i === 0 ? 0.5 : 0.4} />
+            ))}
+            {/* Cross-section lines */}
+            {[0, 60, 120].map((angle) => (
+                <g key={angle} transform={`rotate(${angle} 90 90)`}>
+                    <line x1="90" y1="5" x2="90" y2="175" stroke="#CACBA7" strokeWidth="0.3" strokeDasharray="2 6" />
+                </g>
+            ))}
+        </svg>
+    );
+}
+
+function HeatShape() {
+    /* Radiating arcs — heat waves */
+    return (
+        <svg width="180" height="180" viewBox="0 0 180 180" fill="none" className="opacity-[0.11]">
+            {/* Center point */}
+            <circle cx="90" cy="90" r="3" stroke="#CACBA7" strokeWidth="0.8" />
+            {/* Expanding arcs — top hemisphere only, like heat rising */}
+            {[20, 36, 52, 68, 84].map((r) => (
+                <path
+                    key={r}
+                    d={`M ${90 - r} 90 A ${r} ${r} 0 0 1 ${90 + r} 90`}
+                    stroke="#CACBA7"
+                    strokeWidth="0.5"
+                />
+            ))}
+            {/* Radiating spines */}
+            {[-80, -55, -30, 0, 30, 55, 80].map((deg) => {
+                const rad = (deg * Math.PI) / 180;
+                return (
+                    <line
+                        key={deg}
+                        x1="90"
+                        y1="90"
+                        x2={90 + 84 * Math.sin(rad)}
+                        y2={90 - 84 * Math.cos(rad)}
+                        stroke="#CACBA7"
+                        strokeWidth="0.4"
+                        strokeDasharray="3 5"
+                    />
+                );
+            })}
+            {/* Full outer arc */}
+            <path d="M 2 90 A 88 88 0 0 1 178 90" stroke="#CACBA7" strokeWidth="0.4" />
+        </svg>
+    );
+}
+
+function RippleShape() {
+    /* Concentric rings + drop — ripple in a cup */
+    return (
+        <svg width="180" height="180" viewBox="0 0 180 180" fill="none" className="opacity-[0.11]">
+            {[88, 70, 52, 36, 22, 10].map((r) => (
+                <ellipse key={r} cx="90" cy="95" rx={r} ry={r * 0.45} stroke="#CACBA7" strokeWidth="0.5" />
+            ))}
+            {/* Drop */}
+            <path d="M90 30 Q96 44 90 54 Q84 44 90 30Z" stroke="#CACBA7" strokeWidth="0.7" />
+            {/* Vertical axis */}
+            <line x1="90" y1="54" x2="90" y2="95" stroke="#CACBA7" strokeWidth="0.4" strokeDasharray="2 4" />
+        </svg>
+    );
+}
+
+/* ---------------------------------------------
+   Animation presets
+--------------------------------------------- */
+const reveal = (delay = 0, y = 24) => ({
+    initial: { opacity: 0, y },
+    whileInView: { opacity: 1, y: 0 },
+    transition: { duration: 1.0, ease: [0.22, 1, 0.36, 1], delay },
+    viewport: { once: true },
+});
+
+const fadeIn = (delay = 0) => ({
+    initial: { opacity: 0 },
+    whileInView: { opacity: 1 },
+    transition: { duration: 1.2, ease: "easeOut", delay },
+    viewport: { once: true },
+});
+
+function Rule({ className = "" }) {
+    return (
+        <motion.div
+            initial={{ scaleX: 0, opacity: 0 }}
+            whileInView={{ scaleX: 1, opacity: 1 }}
+            transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+            viewport={{ once: true }}
+            style={{ transformOrigin: "left center" }}
+            className={`h-px ${className}`}
+        />
+    );
+}
+
+/* ---------------------------------------------
+   Image Placeholder
+--------------------------------------------- */
+function StepPlaceholder({ step }) {
+    return (
+        <motion.div
+            {...fadeIn(0.12)}
+            className="relative w-full overflow-hidden"
+            style={{ aspectRatio: "4 / 5" }}
+        >
+            <Image
+                src={step.image}
+                alt={step.title}
+                fill
+                className="object-cover"
+            />
+        </motion.div>
+    );
+}
+
+/* ---------------------------------------------
+   Content block — enriched with subheading,
+   data points, and a unique geometric shape
+--------------------------------------------- */
+function ContentBlock({ step, delay = 0 }) {
+    const { Shape } = step;
+
+    return (
+        <div className="flex flex-col justify-between h-full py-2 relative">
+
+            {/* Ghost geometric shape — top-right of content area */}
+            <motion.div
+                {...fadeIn(delay + 0.3)}
+                className="absolute top-0 right-0 pointer-events-none hidden lg:block"
+                style={{ transform: "translate(10%, -10%)" }}
+            >
+                <Shape />
+            </motion.div>
+
+            {/* -- TOP: step indicator + number -- */}
+            <div>
+                <motion.div {...reveal(delay)} className="flex items-center gap-3 mb-4">
+                    <span className="w-6 h-px" style={{ background: "#6D8575" }} />
+                    <span className="text-[0.6rem] uppercase tracking-[0.38em] font-light" style={{ color: "#6D8575" }}>
+                        Step {step.number}
+                    </span>
+                </motion.div>
+
+                {/* Ghost step number */}
+                <motion.div
+                    {...fadeIn(delay)}
+                    className="text-[clamp(4.5rem,10vw,9rem)] font-bold leading-none select-none mb-[-0.5rem]"
+                    style={{ color: 'rgba(202,203,167,0.05)' }}
+                >
+                    {step.number}
+                </motion.div>
+
+                {/* Title */}
+                <motion.h3
+                    {...reveal(delay + 0.1)}
+                    className="text-[clamp(2.6rem,5.5vw,4.5rem)] font-light leading-[0.88] tracking-[-0.025em] mb-6"
+                    style={{ color: '#CACBA7' }}
+                >
+                    {step.title}
+                </motion.h3>
+
+                {/* -- BOLD SUBHEADING -- */}
+                <motion.p
+                    {...reveal(delay + 0.16)}
+                    className="text-[clamp(1.1rem,2.2vw,1.6rem)] font-semibold leading-[1.15] tracking-[-0.01em] mb-6 whitespace-pre-line"
+                    style={{ color: '#ffffff' }}
+                >
+                    {step.subheading}
+                </motion.p>
+
+                {/* Description */}
+                <motion.p
+                    {...reveal(delay + 0.22)}
+                    className="text-[0.98rem] lg:text-[1.05rem] font-light leading-[1.85] max-w-md mb-10"
+                    style={{ color: 'rgba(170,183,154,0.82)' }}
+                >
+                    {step.text}
+                </motion.p>
+            </div>
+
+            {/* -- BOTTOM: key data points -- */}
+            <motion.div {...reveal(delay + 0.3)} className="space-y-0 max-w-sm">
+                {step.details.map((d, i) => (
+                    <div
+                        key={d.label}
+                        className="flex items-baseline justify-between py-3 group"
+                        style={{ borderBottom: '1px solid rgba(202,203,167,0.10)' }}
+                    >
+                        <span className="text-[0.7rem] uppercase tracking-[0.28em] font-light group-hover:opacity-70 transition-opacity duration-300" style={{ color: 'rgba(202,203,167,0.50)' }}>
+                            {d.label}
+                        </span>
+                        <span className="text-[0.82rem] font-light group-hover:opacity-90 transition-opacity duration-300" style={{ color: 'rgba(170,183,154,0.80)' }}>
+                            {d.value}
+                        </span>
+                    </div>
+                ))}
+            </motion.div>
+
+        </div>
+    );
+}
+
+/* ---------------------------------------------
+   Main component
+--------------------------------------------- */
+export default function JourneySection() {
+    const sectionRef = useRef(null);
+    const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
+    const glowY = useTransform(scrollYProgress, [0, 1], ["10%", "-10%"]);
+
+    return (
+        <div ref={sectionRef}>
+            <Section className="overflow-hidden" style={{ background: '#1a2e24', color: '#CACBA7' }}>
+
+                {/* Ambient glow */}
+                <motion.div aria-hidden style={{ y: glowY }} className="pointer-events-none absolute inset-0 overflow-hidden">
+                    <div
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-[0.06]"
+                        style={{ background: "radial-gradient(circle, #CACBA7 0%, #AAB79A 50%, transparent 75%)" }}
+                    />
+                </motion.div>
+
+                {/* -- HEADER --------------------------------------- */}
+                <div className="mb-6">
+                    <Rule className="mb-7" style={{ background: 'rgba(202,203,167,0.18)' }} />
+                    <div className="flex items-start justify-between">
+                        <div>
+                            <motion.p {...fadeIn(0.08)} className="uppercase tracking-[0.42em] text-[0.6rem] font-light mb-10 lg:mb-16" style={{ color: 'rgba(202,203,167,0.55)' }}>
+                                Our Process
+                            </motion.p>
+                            <motion.h2
+                                {...reveal(0.14, 32)}
+                                className="text-[clamp(3rem,7.5vw,7rem)] leading-[0.88] font-light tracking-[-0.025em]"
+                                style={{ color: '#CACBA7' }}
+                            >
+                                From Forest
+                                <br />
+                                <span className="font-semibold">To Cup.</span>
+                            </motion.h2>
+                        </div>
+                        <motion.span {...fadeIn(0.2)} className="hidden sm:block text-[0.6rem] uppercase tracking-[0.3em] font-light mt-1" style={{ color: 'rgba(202,203,167,0.25)' }}>
+                            §&ensp;002
+                        </motion.span>
+                    </div>
+                </div>
+
+                {/* -- STEPS ---------------------------------------- */}
+                <div className="mt-20 lg:mt-28">
+                    {steps.map((step, index) => (
+                        <div key={step.number}>
+                            <Rule className="mb-14 lg:mb-20" style={{ background: 'rgba(202,203,167,0.10)' }} />
+                            <motion.div
+                                {...reveal(0.06)}
+                                className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-stretch mb-14 lg:mb-20"
+                            >
+                                {index % 2 === 0 ? (
+                                    <>
+                                        <StepPlaceholder step={step} index={index} />
+                                        <ContentBlock step={step} delay={0.1} />
+                                    </>
+                                ) : (
+                                    <>
+                                        <ContentBlock step={step} delay={0.06} />
+                                        <StepPlaceholder step={step} index={index} />
+                                    </>
+                                )}
+                            </motion.div>
+                        </div>
+                    ))}
+                    <Rule className="" style={{ background: 'rgba(202,203,167,0.10)' }} />
+                </div>
+
+                {/* Bottom close */}
+                <div className="mt-14 lg:mt-20 flex items-center gap-4">
+                    <Rule className="flex-1" style={{ background: 'rgba(202,203,167,0.10)' }} />
+                    <motion.span {...fadeIn(0.4)} className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "#6D8575" }} />
+                </div>
+
+            </Section>
+        </div>
+    );
+}
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\sections\NewsletterCTA.jsx
+====================================================
+// components/sections/NewsletterCTA.jsx
+// Purpose: Call-to-action section for newsletter sign-up.
+// Contains an email input form and animated background gradient or coffee imagery.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\sections\OriginStory.jsx
+====================================================
+"use client";
+
+import { motion, useScroll, useTransform, useSpring, useInView } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
+import Image from "next/image";
+import Section from "@/components/layout/Section";
+
+/* ---------------------------------------------
+   Premium unexpected moments:
+   • Headline lines emerge through masked floors
+     with kinetic blur — clean, cinematic, luxury
+   • Image WIPES open from the center outward
+   • GPS coordinates count up live as you enter
+   • Floating coordinate text drifts with parallax
+--------------------------------------------- */
+
+/* -- Animated coordinate counter --------------- */
+function CoordCounter({ target, label, duration = 2 }) {
+    const ref = useRef(null);
+    const inView = useInView(ref, { once: true });
+    const [display, setDisplay] = useState("0.0000");
+
+    useEffect(() => {
+        if (!inView) return;
+        let start = null;
+        const step = (ts) => {
+            if (!start) start = ts;
+            const progress = Math.min((ts - start) / (duration * 1000), 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setDisplay((target * eased).toFixed(4));
+            if (progress < 1) requestAnimationFrame(step);
+            else setDisplay(target.toFixed(4));
+        };
+        requestAnimationFrame(step);
+    }, [inView, target, duration]);
+
+    return (
+        <div ref={ref} className="flex flex-col items-center gap-1">
+            <span
+                className="font-light tabular-nums"
+                style={{
+                    fontSize: "clamp(1.1rem, 2.5vw, 1.8rem)",
+                    color: "rgba(202,203,167,0.7)",
+                    fontFamily: "monospace",
+                    letterSpacing: "0.06em",
+                }}
+            >
+                {display}°
+            </span>
+            <span
+                className="uppercase tracking-[0.35em] font-light"
+                style={{ fontSize: "0.52rem", color: "rgba(202,203,167,0.35)" }}
+            >
+                {label}
+            </span>
+        </div>
+    );
+}
+
+/* -- Premium line reveal — masked curtain with kinetic blur -- */
+/*
+    FIX: whileInView on the inner hidden element is unreliable because
+    IntersectionObserver sees its transformed (off-screen) position.
+    Solution: useInView on the OUTER div (always at y:0, always detectable),
+    then drive inner motion.div with animate= so it fires correctly.
+*/
+function LineReveal({ children, delay = 0 }) {
+    const containerRef = useRef(null);
+    const isInView = useInView(containerRef, { once: true, margin: "0px 0px -40px 0px" });
+
+    return (
+        <div ref={containerRef} style={{ overflow: "hidden", lineHeight: "1.12" }}>
+            <motion.div
+                initial={{ y: "105%", filter: "blur(14px)", opacity: 0 }}
+                animate={
+                    isInView
+                        ? { y: "0%", filter: "blur(0px)", opacity: 1 }
+                        : { y: "105%", filter: "blur(14px)", opacity: 0 }
+                }
+                transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay }}
+                style={{ display: "block" }}
+            >
+                {children}
+            </motion.div>
+        </div>
+    );
+}
+
+/* ---------------------------------------------
+   Main component
+--------------------------------------------- */
+export default function OriginStory() {
+    const sectionRef = useRef(null);
+
+    const { scrollYProgress } = useScroll({
+        target: sectionRef,
+        offset: ["start end", "end start"],
+        layoutEffect: false,          // prevents hydration mismatch warning
+    });
+
+    /* Parallax transforms */
+    const coordY = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
+    const imageParY = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
+    const glowY = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
+
+    /* Spring-smoothed image parallax */
+    const smoothImageY = useSpring(imageParY, { stiffness: 60, damping: 20 });
+
+    return (
+        <div ref={sectionRef}>
+            <Section className="overflow-hidden" style={{ background: '#141f1a', color: '#ffffff' }}>
+
+                {/* -- AMBIENT DEEP FOREST GLOW ----------------------------------- */}
+                <motion.div
+                    aria-hidden
+                    style={{ y: glowY }}
+                    className="pointer-events-none absolute inset-0 overflow-hidden"
+                >
+                    <div
+                        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full opacity-[0.04]"
+                        style={{ background: "radial-gradient(circle, #AAB79A 0%, #3D5757 55%, transparent 75%)" }}
+                    />
+                </motion.div>
+
+                {/* -- SECTION LABEL + COORDINATES -------------------------------- */}
+                <div className="mb-10 lg:mb-14">
+                    <motion.div
+                        initial={{ scaleX: 0, opacity: 0 }}
+                        whileInView={{ scaleX: 1, opacity: 1 }}
+                        transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+                        viewport={{ once: true }}
+                        style={{ transformOrigin: "left center" }}
+                        className="h-px bg-white/[0.12] mb-7"
+                    />
+                    <div className="flex items-center justify-between">
+                        <motion.p
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            transition={{ duration: 1.0, delay: 0.1 }}
+                            viewport={{ once: true }}
+                            className="uppercase tracking-[0.42em] text-[0.6rem] font-light"
+                            style={{ color: 'rgba(255,255,255,0.55)' }}
+                        >
+                            Origin Story
+                        </motion.p>
+                        <motion.span
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            transition={{ duration: 1.0, delay: 0.2 }}
+                            viewport={{ once: true }}
+                            className="hidden sm:block text-[0.6rem] uppercase tracking-[0.3em] font-light"
+                            style={{ color: 'rgba(255,255,255,0.30)' }}
+                        >
+                            §&ensp;003
+                        </motion.span>
+                    </div>
+                </div>
+
+                {/* -- PREMIUM HEADLINE — masked line reveal ----------------------- */}
+                {/*
+          Each line slides up from behind an invisible overflow mask
+          while a blur sharpens simultaneously — kinetic focus effect.
+          Premium, cinematic, works perfectly on every screen size.
+      */}
+                <div className="mb-14 lg:mb-18">
+                    <h2
+                        className="
+            text-[clamp(2.8rem,7.5vw,7rem)]
+            tracking-[-0.025em]
+            font-light
+          "
+                    >
+                        <LineReveal delay={0.05}>From The Forest,</LineReveal>
+                        <LineReveal delay={0.20}>To The Fire,</LineReveal>
+                        <LineReveal delay={0.35}>
+                            To The{" "}<span className="font-semibold">Cup.</span>
+                        </LineReveal>
+                    </h2>
+                </div>
+
+                {/* -- WIDE LANDSCAPE IMAGE PLACEHOLDER -------------------- */}
+                {/* Reveals as a horizontal wipe from center outward */}
+                <div className="relative mb-12 lg:mb-16 overflow-hidden" style={{ aspectRatio: "21 / 9" }}>
+
+                    {/* The wipe reveal wrapper */}
+                    <motion.div
+                        initial={{ clipPath: "inset(0 50% 0 50%)" }}
+                        whileInView={{ clipPath: "inset(0 0% 0 0%)" }}
+                        transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+                        viewport={{ once: true }}
+                        className="absolute inset-0"
+                    >
+
+                        {/* Parallax inner layer */}
+                        <motion.div
+                            style={{ y: smoothImageY }}
+                            className="absolute inset-[-6%] w-[112%] h-[112%]"
+                        >
+                            <Image
+                                src="/images/origin/last-image.png"
+                                alt="Forest Origin"
+                                fill
+                                className="object-cover"
+                            />
+
+                            {/* Keep subtle vignette for readability */}
+                            <div
+                                className="absolute inset-0"
+                                style={{
+                                    background:
+                                        "linear-gradient(to top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.12) 40%, transparent 100%)",
+                                }}
+                            />
+                        </motion.div>
+
+                    </motion.div>
+
+                    {/* -- DRIFTING COORDINATE OVERLAY -- the second unexpected thing -- */}
+                    <motion.div
+                        style={{ y: coordY }}
+                        className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
+                    >
+                        <div className="flex items-center gap-12 lg:gap-20">
+                            <CoordCounter target={6.8756} label="Latitude N" duration={2.2} />
+                            <div className="flex flex-col items-center gap-2">
+                                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" className="opacity-30">
+                                    <circle cx="24" cy="24" r="23" stroke="#CACBA7" strokeWidth="0.6" />
+                                    <circle cx="24" cy="24" r="14" stroke="#CACBA7" strokeWidth="0.4" />
+                                    <circle cx="24" cy="24" r="6" stroke="#CACBA7" strokeWidth="0.4" />
+                                    <circle cx="24" cy="24" r="1.5" fill="#CACBA7" />
+                                    <line x1="24" y1="1" x2="24" y2="10" stroke="#CACBA7" strokeWidth="0.6" />
+                                    <line x1="24" y1="38" x2="24" y2="47" stroke="#CACBA7" strokeWidth="0.6" />
+                                    <line x1="1" y1="24" x2="10" y2="24" stroke="#CACBA7" strokeWidth="0.6" />
+                                    <line x1="38" y1="24" x2="47" y2="24" stroke="#CACBA7" strokeWidth="0.6" />
+                                    <polygon points="24,3 22,9 24,7 26,9" stroke="#CACBA7" strokeWidth="0.5" fill="none" />
+                                </svg>
+                                <span className="font-light text-[0.48rem] uppercase tracking-[0.4em]"
+                                    style={{ color: 'rgba(255,255,255,0.50)' }}>
+                                    Forest Farms
+                                </span>
+                            </div>
+                            <CoordCounter target={39.6014} label="Longitude E" duration={2.2} />
+                        </div>
+                    </motion.div>
+
+                    {/* Image metadata — bottom strip */}
+                    <div className="absolute bottom-0 inset-x-0 px-6 py-4 z-20 flex items-end justify-between">
+                        <span
+                            className="text-[0.5rem] uppercase tracking-[0.38em] font-light"
+                            style={{ color: "rgba(202,203,167,0.45)" }}
+                        >
+
+                        </span>
+                        <span
+                            className="text-[0.48rem] font-light"
+                            style={{ color: "rgba(202,203,167,0.35)", fontFamily: "monospace", letterSpacing: "0.04em" }}
+                        >
+                            &nbsp;·&nbsp;   &nbsp;·&nbsp;
+                        </span>
+                    </div>
+
+                    {/* Wipe edge hairlines — left + right appear as wipe completes */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ duration: 0.4, delay: 1.6 }}
+                        viewport={{ once: true }}
+                        className="absolute inset-y-0 left-0 w-px"
+                        style={{ background: "rgba(202,203,167,0.15)" }}
+                    />
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ duration: 0.4, delay: 1.6 }}
+                        viewport={{ once: true }}
+                        className="absolute inset-y-0 right-0 w-px"
+                        style={{ background: "rgba(202,203,167,0.15)" }}
+                    />
+
+                </div>
+
+                {/* -- BOTTOM LAYOUT: body copy + stats --------------------------- */}
+                <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] gap-10 lg:gap-20 items-start">
+
+                    {/* Body paragraph */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+                        viewport={{ once: true }}
+                    >
+                        <p className="text-[1.1rem] lg:text-[1.25rem] font-light leading-[1.85] mb-8" style={{ color: 'rgba(255,255,255,0.72)' }}>
+                            Coffee is more than a beverage.
+                            It is the story of land, craftsmanship,
+                            patience, and the countless hands that
+                            guide every bean from origin to cup.
+                        </p>
+
+                        {/* Bold pull-quote */}
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1], delay: 0.22 }}
+                            viewport={{ once: true }}
+                            className="text-[clamp(1.4rem,2.8vw,2.2rem)] font-semibold leading-[1.1] tracking-[-0.015em]"
+                            style={{ color: '#ffffff' }}
+                        >
+                            Every altitude,<br />every season,<br />every farmer.
+                        </motion.p>
+
+                        {/* Sage rule */}
+                        <motion.div
+                            initial={{ width: 0, opacity: 0 }}
+                            whileInView={{ width: "3rem", opacity: 1 }}
+                            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+                            viewport={{ once: true }}
+                            className="mt-7 h-px"
+                            style={{ background: "#6D8575" }}
+                        />
+                    </motion.div>
+
+                    {/* Origin stats */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 24 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+                        viewport={{ once: true }}
+                        className="space-y-0"
+                    >
+                        {[
+                            { label: "Country", value: "Ethiopia" },
+                            { label: "Region", value: "Yirgacheffe · Sidama" },
+                            { label: "Altitude", value: "1,400 – 2,200 m" },
+                            { label: "Processing", value: "Natural · Washed" },
+                            { label: "Season", value: "Oct – Jan harvest" },
+                        ].map((stat) => (
+                            <div
+                                key={stat.label}
+                                className="flex items-baseline justify-between py-4 border-b border-white/[0.07] group"
+                            >
+                                <span className="text-[0.68rem] uppercase tracking-[0.28em] font-light group-hover:opacity-70 transition-opacity duration-300"
+                                    style={{ color: 'rgba(255,255,255,0.52)' }}>
+                                    {stat.label}
+                                </span>
+                                <span className="text-[0.85rem] font-light group-hover:opacity-90 transition-opacity duration-300 text-right"
+                                    style={{ color: 'rgba(255,255,255,0.80)' }}>
+                                    {stat.value}
+                                </span>
+                            </div>
+                        ))}
+                    </motion.div>
+
+                </div>
+
+                {/* Bottom close */}
+                <div className="mt-14 lg:mt-20 flex items-center gap-4">
+                    <motion.div
+                        initial={{ scaleX: 0, opacity: 0 }}
+                        whileInView={{ scaleX: 1, opacity: 1 }}
+                        transition={{ duration: 1.0 }}
+                        viewport={{ once: true }}
+                        style={{ transformOrigin: "left center" }}
+                        className="flex-1 h-px bg-white/[0.08]"
+                    />
+                    <motion.span
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ duration: 0.8, delay: 0.4 }}
+                        viewport={{ once: true }}
+                        className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+                        style={{ background: "#6D8575" }}
+                    />
+                </div>
+
+            </Section>
+        </div>
+    );
+}
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\sections\ProcessSteps.jsx
+====================================================
+// components/sections/ProcessSteps.jsx
+// Purpose: Animated step-by-step section describing the coffee sourcing & roasting process.
+// Steps animate in sequentially as the user scrolls (GSAP ScrollTrigger).
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\sections\SignatureCollection.jsx
+====================================================
+"use client";
+
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Section from "@/components/layout/Section";
+
+/* ---------------------------------------------
+   Fade + slide animation presets
+--------------------------------------------- */
+const fadeUp = (delay = 0) => ({
+    initial: { opacity: 0, y: 28 },
+    whileInView: { opacity: 1, y: 0 },
+    transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1], delay },
+    viewport: { once: true },
+});
+
+const fadeIn = (delay = 0) => ({
+    initial: { opacity: 0 },
+    whileInView: { opacity: 1 },
+    transition: { duration: 1.1, ease: "easeOut", delay },
+    viewport: { once: true },
+});
+
+/* ---------------------------------------------
+   Detail row
+--------------------------------------------- */
+function DetailRow({ label, value }) {
+    return (
+        <div
+            className="flex items-baseline justify-between py-4 group"
+            style={{ borderBottom: '1px solid rgba(255,255,255,0.14)' }}
+        >
+            <span
+                className="text-sm uppercase tracking-[0.22em] font-light group-hover:opacity-80 transition-opacity duration-300"
+                style={{ color: 'rgba(255,255,255,0.55)' }}
+            >
+                {label}
+            </span>
+            <span
+                className="text-sm font-light group-hover:opacity-90 transition-opacity duration-300"
+                style={{ color: 'rgba(255,255,255,0.82)' }}
+            >
+                {value}
+            </span>
+        </div>
+    );
+}
+
+/* ---------------------------------------------
+   Main component
+--------------------------------------------- */
+export default function SignatureCollection() {
+    return (
+        <Section className="overflow-hidden" style={{ background: '#141f1a', color: '#ffffff' }}>
+
+            {/* -- EDITORIAL FRAME ------------------------------------------- */}
+            <motion.div
+                {...fadeIn(0)}
+                className="
+          relative
+          grid grid-cols-1 lg:grid-cols-[1fr_1.55fr]
+          min-h-[540px] lg:min-h-[680px]
+          mb-0
+        "
+                style={{ border: '1px solid rgba(202,203,167,0.10)' }}
+            >
+
+                {/* Hairline corner accents — pure decoration */}
+                <span className="pointer-events-none absolute top-0 left-0 w-10 h-10 border-t border-l" style={{ borderColor: 'rgba(255,255,255,0.22)' }} />
+                <span className="pointer-events-none absolute top-0 right-0 w-10 h-10 border-t border-r" style={{ borderColor: 'rgba(255,255,255,0.22)' }} />
+                <span className="pointer-events-none absolute bottom-0 left-0 w-10 h-10 border-b border-l" style={{ borderColor: 'rgba(255,255,255,0.22)' }} />
+                <span className="pointer-events-none absolute bottom-0 right-0 w-10 h-10 border-b border-r" style={{ borderColor: 'rgba(255,255,255,0.22)' }} />
+
+                {/* -- LEFT PANEL ------------------------------------------------ */}
+                <div className="
+          flex flex-col justify-between
+          px-8 py-10
+          lg:px-14 lg:py-14
+          border-b lg:border-b-0 lg:border-r
+        "
+                    style={{ borderColor: 'rgba(202,203,167,0.09)' }}>
+
+                    {/* Label */}
+                    <motion.p
+                        {...fadeUp(0.1)}
+                        className="
+              uppercase tracking-[0.38em] text-[0.65rem]
+              font-light
+              mb-auto
+            "
+                        style={{ color: 'rgba(255,255,255,0.55)' }}
+                    >
+                        Signature Collection
+                    </motion.p>
+
+                    {/* Headline — sits at bottom of left panel */}
+                    <motion.h2
+                        {...fadeUp(0.22)}
+                        className="
+              text-[clamp(2.6rem,6.5vw,5.4rem)]
+              leading-[0.92]
+              font-light
+              tracking-[-0.02em]
+              mt-12 lg:mt-0
+            "
+                        style={{ color: '#ffffff' }}
+                    >
+                        Crafted for
+                        <br />
+                        <em className="not-italic" style={{ color: 'rgba(255,255,255,0.48)' }}>slow mornings.</em>
+                    </motion.h2>
+
+                    {/* Micro year tag — editorial detail */}
+                    <motion.span
+                        {...fadeIn(0.45)}
+                        className="
+              hidden lg:block
+              mt-12
+              text-[0.6rem] uppercase tracking-[0.32em] font-light
+            "
+                        style={{ color: 'rgba(255,255,255,0.30)' }}
+                    >
+                        Est. &ensp;MMXXIV
+                    </motion.span>
+
+                </div>
+
+                {/* -- RIGHT PANEL — IMAGE PLACEHOLDER --------------------------- */}
+                <motion.div
+                    {...fadeIn(0.18)}
+                    className="relative overflow-hidden"
+                    style={{ minHeight: "380px" }}
+                >
+
+                    <Image
+                        src="/images/coffee/signature-bag.png"
+                        alt="Estate Blend"
+                        fill
+                        className="object-cover"
+                        priority={false}
+                    />
+
+                </motion.div>
+
+            </motion.div>
+            {/* -- END EDITORIAL FRAME --------------------------------------- */}
+
+            {/* -- PRODUCT DETAILS BELOW FRAME ------------------------------- */}
+            <div className="
+        grid grid-cols-1 lg:grid-cols-[1fr_1.55fr]
+        mb-0
+      "
+                style={{ border: '1px solid rgba(202,203,167,0.10)', borderTop: 'none' }}>
+
+                {/* Logo column — mirrors left panel width, visible on all sizes */}
+                <motion.div
+                    {...fadeIn(0.1)}
+                    className="
+            flex items-center justify-center
+            border-b lg:border-b-0 lg:border-r
+            py-10 lg:py-0
+            min-h-[120px] lg:min-h-0
+          "
+                    style={{ borderColor: 'rgba(202,203,167,0.09)' }}
+                >
+                    <div className="relative w-[80px] sm:w-[100px] lg:w-[120px] xl:w-[140px] opacity-60 hover:opacity-90 transition-opacity duration-500">
+                        <Image
+                            src="/images/brand/logo.png"
+                            alt="Forest Farmer Coffee Roasters"
+                            width={280}
+                            height={280}
+                            className="w-full h-auto object-contain"
+                            priority={false}
+                        />
+                    </div>
+                </motion.div>
+
+                {/* Product info — sits under the image column */}
+                <div className="px-8 py-10 lg:px-14 lg:py-12">
+
+                    {/* Product name */}
+                    <motion.h3
+                        {...fadeUp(0.08)}
+                        className="
+              text-[clamp(1.8rem,4vw,3rem)]
+              font-light tracking-[-0.01em]
+              mb-5
+            "
+                        style={{ color: '#CACBA7' }}
+                    >
+                        Estate Blend
+                    </motion.h3>
+
+                    {/* Description */}
+                    <motion.p
+                        {...fadeUp(0.16)}
+                        className="
+              font-light leading-[1.75]
+              text-[0.95rem]
+              max-w-lg
+              mb-10
+            "
+                        style={{ color: 'rgba(255,255,255,0.72)' }}
+                    >
+                        A balanced expression of origin, craftsmanship and patience.
+                        Designed for those who appreciate depth, sweetness and clarity
+                        in every cup.
+                    </motion.p>
+
+                    {/* Detail rows */}
+                    <motion.div {...fadeUp(0.24)} className="max-w-lg">
+                        <DetailRow label="Tasting Notes" value="Chocolate · Caramel · Citrus" />
+                        <DetailRow label="Roast" value="Medium" />
+                        <DetailRow label="Origin" value="Forest Farms" />
+                    </motion.div>
+
+                </div>
+
+            </div>
+
+        </Section>
+    );
+}
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\sections\Testimonials.jsx
+====================================================
+// components/sections/Testimonials.jsx
+"use client";
+
+import { motion } from "framer-motion";
+import Section from "@/components/layout/Section";
+
+const testimonials = [
+    {
+        quote:
+            "Coffee should tell the story of where it came from. Forest Farmer does exactly that.",
+        author: "Specialty Coffee Enthusiast",
+    },
+    {
+        quote:
+            "Every cup feels intentional. Clean, balanced and beautifully roasted.",
+        author: "Independent Roaster",
+    },
+    {
+        quote:
+            "One of the most thoughtful coffees I've experienced in recent years.",
+        author: "Coffee Journal",
+    },
+];
+
+export default function Testimonials() {
+    return (
+        <Section
+            className="text-white"
+            style={{ background: "#141f1a" }}
+        >
+            <div className="mb-20">
+                <p
+                    className="
+          uppercase
+          tracking-[0.4em]
+          text-[0.65rem]
+          text-white/40
+          mb-8
+          "
+                >
+                    Testimonials
+                </p>
+
+                <h2
+                    className="
+          text-[clamp(3rem,7vw,6rem)]
+          leading-[0.9]
+          font-light
+          "
+                >
+                    What People
+                    <br />
+                    Are Saying.
+                </h2>
+            </div>
+
+            <div className="space-y-20">
+                {testimonials.map((item, index) => (
+                    <motion.div
+                        key={index}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                        viewport={{ once: true }}
+                        className="border-t border-white/10 pt-10"
+                    >
+                        <blockquote
+                            className="
+              text-[clamp(1.6rem,3vw,2.5rem)]
+              leading-[1.25]
+              max-w-4xl
+              font-light
+              "
+                        >
+                            “{item.quote}”
+                        </blockquote>
+
+                        <p
+                            className="
+              mt-8
+              uppercase
+              tracking-[0.25em]
+              text-sm
+              text-white/45
+              "
+                        >
+                            {item.author}
+                        </p>
+                    </motion.div>
+                ))}
+            </div>
+        </Section>
+    );
+}
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\sections\VisualJournal.jsx
+====================================================
+// components/sections/VisualJournal.jsx
+"use client";
+
+import Image from "next/image";
+import { motion } from "framer-motion";
+import Section from "@/components/layout/Section";
+
+const items = [
+    {
+        type: "image",
+        src: "/images/gallery/gallery-1.png",
+        link: "#",
+    },
+    {
+        type: "image",
+        src: "/images/gallery/gallery-2.png",
+        link: "#",
+    },
+    {
+        type: "image",
+        src: "/images/gallery/gallery-3.png",
+        link: "#",
+    },
+];
+
+export default function VisualJournal() {
+    return (
+        <Section
+            className="text-white"
+            style={{ background: "#141f1a" }}
+        >
+            <div className="mb-16">
+
+                <p
+                    className="
+          uppercase
+          tracking-[0.38em]
+          text-[0.65rem]
+          text-white/40
+          mb-6
+          "
+                >
+                    Visual Journal
+                </p>
+
+                <h2
+                    className="
+          text-[clamp(3rem,7vw,6rem)]
+          leading-[0.9]
+          font-light
+          "
+                >
+                    Moments From
+                    <br />
+                    The Roastery.
+                </h2>
+
+            </div>
+
+            <div className="space-y-8">
+
+                {/* Large Feature */}
+                <motion.a
+                    href={items[0].link}
+                    whileHover={{ scale: 1.01 }}
+                    className="
+          relative
+          block
+          overflow-hidden
+          aspect-[16/9]
+          "
+                >
+                    <Image
+                        src={items[0].src}
+                        alt=""
+                        fill
+                        className="object-cover"
+                    />
+                </motion.a>
+
+                {/* Two Smaller */}
+                <div className="grid md:grid-cols-2 gap-8">
+
+                    {items.slice(1).map((item, index) => (
+                        <motion.a
+                            key={index}
+                            href={item.link}
+                            whileHover={{ scale: 1.01 }}
+                            className="
+              relative
+              block
+              overflow-hidden
+              aspect-square
+              "
+                        >
+                            <Image
+                                src={item.src}
+                                alt=""
+                                fill
+                                className="object-cover"
+                            />
+                        </motion.a>
+                    ))}
+
+                </div>
+
+            </div>
+
+            <div className="mt-12">
+
+                <button
+                    className="
+          uppercase
+          tracking-[0.25em]
+          text-sm
+          text-white/50
+          hover:text-white
+          transition
+          "
+                >
+                    View More Stories ?
+                </button>
+
+            </div>
+
+        </Section>
+    );
+}
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\ui\Badge.jsx
+====================================================
+// components/ui/Badge.jsx
+// Purpose: Small inline label badge component.
+// Variants: category, status (new, sold-out), dietary (vegan, organic). Accepts color and size props.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\ui\Button.jsx
+====================================================
+// components/ui/Button.jsx
+// Purpose: Reusable Button component with variants: primary, secondary, ghost, icon.
+// Supports size props (sm, md, lg), loading state, disabled state, and optional icon slot.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\ui\Card.jsx
+====================================================
+// components/ui/Card.jsx
+// Purpose: Generic card container component with variants: default, elevated, bordered, glass.
+// Used across coffee product cards, testimonial cards, and blog cards.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\ui\Input.jsx
+====================================================
+// components/ui/Input.jsx
+// Purpose: Styled text input component.
+// Variants: default, search. Supports label, error message, helper text, and leading/trailing icon slots.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\ui\LogoLoader.jsx
+====================================================
+"use client";
+
+import Image from "next/image";
+
+export default function LogoLoader() {
+    return (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#7A8D7A]">
+            <div className="relative w-[180px] h-[260px]">
+
+                {/* White logo */}
+                <Image
+                    src="/images/brand/logo.png"
+                    alt="Logo"
+                    fill
+                    className="object-contain"
+                    priority
+                />
+
+            </div>
+        </div>
+    );
+}
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\ui\Modal.jsx
+====================================================
+// components/ui/Modal.jsx
+// Purpose: Accessible modal dialog component.
+// Traps focus, closes on overlay click or Esc key; animated with Framer Motion AnimatePresence.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\ui\Skeleton.jsx
+====================================================
+// components/ui/Skeleton.jsx
+// Purpose: Shimmer skeleton loader placeholder.
+// Accepts width, height, and shape (rect, circle) props.
+// Used while async data is loading in blog, gallery, and menu sections.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\components\ui\Spinner.jsx
+====================================================
+// components/ui/Spinner.jsx
+// Purpose: Loading spinner component.
+// Animated SVG ring; accepts size and color props. Used in loading states across the app.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\lib\cloudinary\config.js
+====================================================
+// lib/cloudinary/config.js
+// Purpose: Initialises and exports the configured Cloudinary SDK instance.
+// Called once at module load; subsequent imports receive the cached configured instance.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\lib\cloudinary\upload.js
+====================================================
+// lib/cloudinary/upload.js
+// Purpose: Cloudinary upload utility functions.
+// Exports helpers: uploadImage(file), deleteImage(publicId), generateSignedUrl(publicId).
+// Configured via CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET env vars.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\lib\mongodb\client.js
+====================================================
+// lib/mongodb/client.js
+// Purpose: MongoDB client singleton for Next.js.
+// Initialises and caches a MongoClient instance to avoid creating new connections on every request.
+// Uses the MONGODB_URI environment variable.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\lib\mongodb\connect.js
+====================================================
+// lib/mongodb/connect.js
+// Purpose: Mongoose connection utility.
+// Exports a connectDB() function that establishes a Mongoose connection using MONGODB_URI.
+// Caches the connection state to prevent repeated connections in serverless environments.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\lib\utils\constants.js
+====================================================
+// lib/utils/constants.js
+// Purpose: Application-wide constant values.
+// Defines: NAV_LINKS, SOCIAL_LINKS, MENU_CATEGORIES, ROAST_LEVELS, COFFEE_ORIGINS, SITE_METADATA.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\lib\utils\formatters.js
+====================================================
+// lib/utils/formatters.js
+// Purpose: Shared formatting utility functions.
+// Exports: formatPrice(value, currency), formatDate(date, locale), slugify(text), truncate(text, maxLength).
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\lib\utils\validators.js
+====================================================
+// lib/utils/validators.js
+// Purpose: Input validation utility functions.
+// Exports: validateEmail(email), validateContactForm(data), validateProductData(data).
+// Used in API route handlers before processing requests.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\models\Blog.js
+====================================================
+// models/Blog.js
+// Purpose: Mongoose schema and model for blog posts.
+// Schema fields: title, slug (unique), excerpt, content (rich text), coverImage, author, category, tags, publishedAt, status (draft|published).
+// Includes: pre-save slug generation hook, text indexes for search.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\models\Category.js
+====================================================
+// models/Category.js
+// Purpose: Mongoose schema and model for content categories (shared by blog posts and products).
+// Schema fields: name, slug (unique), description, color, icon, createdAt.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\models\Product.js
+====================================================
+// models/Product.js
+// Purpose: Mongoose schema and model for coffee products.
+// Schema fields: name, slug (unique), description, origin, roastLevel, flavorNotes[], price, weight, stock, images[], category (ref), isFeatured, createdAt.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\models\SocialPost.js
+====================================================
+import mongoose from "mongoose";
+
+const SocialPostSchema = new mongoose.Schema(
+    {
+        mediaUrl: {
+            type: String,
+            required: true,
+        },
+
+        mediaType: {
+            type: String,
+            enum: ["image", "video"],
+            required: true,
+        },
+
+        instagramUrl: {
+            type: String,
+            required: true,
+        },
+
+        title: {
+            type: String,
+            default: "",
+        },
+
+        isActive: {
+            type: Boolean,
+            default: true,
+        },
+
+        order: {
+            type: Number,
+            default: 0,
+        },
+    },
+    {
+        timestamps: true,
+    }
+);
+
+export default mongoose.models.SocialPost ||
+    mongoose.model("SocialPost", SocialPostSchema);
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\config\cloudinary.js
+====================================================
+// config/cloudinary.js
+// Purpose: Cloudinary SDK configuration for the Express.js server.
+// Reads CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET from process.env.
+// Exports the configured cloudinary v2 instance for use in upload controllers.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\config\database.js
+====================================================
+// config/database.js
+// Purpose: Express.js server MongoDB connection configuration.
+// Exports a connectDB() function that connects Mongoose using the MONGODB_URI env variable.
+// Intended for use in the Express server entry point (server.js).
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\services\blog\blogService.js
+====================================================
+// services/blog/blogService.js
+// Purpose: Data access layer for blog posts.
+// Exports: getAllPosts(filters), getPostBySlug(slug), getRelatedPosts(categoryId, excludeSlug).
+// Communicates with the Blog Mongoose model via connectDB.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\services\coffee\coffeeService.js
+====================================================
+// services/coffee/coffeeService.js
+// Purpose: Data access layer for coffee products.
+// Exports: getAllProducts(filters), getProductBySlug(slug), getFeaturedProducts(), getProductsByCategory(category).
+// Communicates with the Product Mongoose model via connectDB.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\services\instagram\instagramService.js
+====================================================
+// services/instagram/instagramService.js
+// Purpose: Instagram Basic Display API integration.
+// Exports: fetchRecentPosts(count) — fetches the N most recent media items from the brand's Instagram.
+// Caches results with Next.js fetch revalidation to reduce API quota usage.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\routes\blogRoutes.js
+====================================================
+// routes/blogRoutes.js
+// Purpose: Express.js router for blog API endpoints.
+// Defines routes:
+//   GET    /api/blog          -> blogController.getAllPosts
+//   GET    /api/blog/:slug    -> blogController.getPostBySlug
+//   POST   /api/blog          -> auth middleware -> blogController.createPost
+//   PUT    /api/blog/:id      -> auth middleware -> blogController.updatePost
+//   DELETE /api/blog/:id      -> auth middleware -> blogController.deletePost
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\routes\productRoutes.js
+====================================================
+// routes/productRoutes.js
+// Purpose: Express.js router for product API endpoints.
+// Defines routes:
+//   GET    /api/products           -> productController.getAllProducts
+//   GET    /api/products/:slug     -> productController.getProductBySlug
+//   POST   /api/products           -> auth middleware -> productController.createProduct
+//   PUT    /api/products/:id       -> auth middleware -> productController.updateProduct
+//   DELETE /api/products/:id       -> auth middleware -> productController.deleteProduct
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\controllers\blogController.js
+====================================================
+// controllers/blogController.js
+// Purpose: Express.js controller for blog-related API endpoints.
+// Handler functions: getAllPosts, getPostBySlug, createPost, updatePost, deletePost.
+// Each handler calls the blog service and returns JSON responses with appropriate HTTP status codes.
+
+
+
+====================================================
+FILE: C:\Users\Venkatesh\.gemini\antigravity-ide\scratch\coffee-brand-nextjs\controllers\productController.js
+====================================================
+// controllers/productController.js
+// Purpose: Express.js controller for product-related API endpoints.
+// Handler functions: getAllProducts, getProductBySlug, createProduct, updateProduct, deleteProduct.
+// Each handler calls the coffee service and returns JSON responses with appropriate HTTP status codes.
+

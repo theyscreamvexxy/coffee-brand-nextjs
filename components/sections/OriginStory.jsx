@@ -249,13 +249,13 @@ export default function OriginStory() {
                             className="text-[0.5rem] uppercase tracking-[0.38em] font-light"
                             style={{ color: "rgba(202,203,167,0.45)" }}
                         >
-                            Image Placeholder
+
                         </span>
                         <span
                             className="text-[0.48rem] font-light"
                             style={{ color: "rgba(202,203,167,0.35)", fontFamily: "monospace", letterSpacing: "0.04em" }}
                         >
-                            /images/origin/landscape.jpg &nbsp;·&nbsp; 3840 × 1646 px &nbsp;·&nbsp; 21 : 9
+                            &nbsp;·&nbsp;   &nbsp;·&nbsp;
                         </span>
                     </div>
 

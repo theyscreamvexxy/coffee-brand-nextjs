@@ -3,6 +3,8 @@ import BrandPhilosophy from "@/components/sections/BrandPhilosophy";
 import SignatureCollection from "@/components/sections/SignatureCollection";
 import JourneySection from "@/components/sections/JourneySection";
 import OriginStory from "@/components/sections/OriginStory";
+import Testimonials from "@/components/sections/Testimonials";
+import VisualJournal from "@/components/sections/VisualJournal";
 
 export default function Home() {
     return (
@@ -12,6 +14,8 @@ export default function Home() {
             <SignatureCollection />
             <JourneySection />
             <OriginStory />
+            <Testimonials />
+            <VisualJournal />
         </main>
     );
 }
