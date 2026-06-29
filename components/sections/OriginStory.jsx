@@ -31,7 +31,7 @@ function CoordCounter({ target, label, duration = 2 }) {
             <span
                 className="font-light tabular-nums"
                 style={{
-                    fontSize: "clamp(1.1rem, 2.5vw, 1.8rem)",
+                    fontSize: "clamp(0.85rem, 2.5vw, 1.8rem)",
                     color: "rgba(202,203,167,0.7)",
                     fontFamily: "monospace",
                     letterSpacing: "0.06em",
@@ -41,7 +41,7 @@ function CoordCounter({ target, label, duration = 2 }) {
             </span>
             <span
                 className="uppercase tracking-[0.35em] font-light"
-                style={{ fontSize: "0.52rem", color: "rgba(202,203,167,0.35)" }}
+                style={{ fontSize: "0.48rem", color: "rgba(202,203,167,0.35)" }}
             >
                 {label}
             </span>
@@ -132,8 +132,7 @@ export default function OriginStory() {
                 {/* ── Wide landscape image — horizontal wipe + parallax ── */}
                 <div
                     ref={imgRef}
-                    className="relative mb-12 lg:mb-16 overflow-hidden"
-                    style={{ aspectRatio: "21/9" }}
+                    className="relative mb-10 lg:mb-16 overflow-hidden aspect-[4/3] md:aspect-[16/9] lg:aspect-[21/9]"
                 >
 
                     {/*
@@ -175,10 +174,10 @@ export default function OriginStory() {
                         style={{ y: coordY }}
                         className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none"
                     >
-                        <div className="flex items-center gap-12 lg:gap-20">
+                        <div className="flex items-center gap-6 md:gap-12 lg:gap-20">
                             <CoordCounter target={6.8756} label="Latitude N" duration={1.8} />
                             <div className="flex flex-col items-center gap-2">
-                                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" className="opacity-25">
+                                <svg width="36" height="36" viewBox="0 0 48 48" fill="none" className="opacity-25 md:w-12 md:h-12">
                                     <circle cx="24" cy="24" r="23" stroke="#CACBA7" strokeWidth="0.6" />
                                     <circle cx="24" cy="24" r="14" stroke="#CACBA7" strokeWidth="0.4" />
                                     <circle cx="24" cy="24" r="6" stroke="#CACBA7" strokeWidth="0.4" />
@@ -211,7 +210,7 @@ export default function OriginStory() {
                         initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1], delay: 0.1 }} viewport={{ once: true }}
                     >
-                        <p className="text-[1.1rem] lg:text-[1.25rem] font-light leading-[1.85] mb-8" style={{ color: "rgba(255,255,255,0.68)" }}>
+                        <p className="text-[0.95rem] lg:text-[1.25rem] font-light leading-[1.85] mb-8" style={{ color: "rgba(255,255,255,0.68)" }}>
                             Coffee is more than a beverage. It is the story of land, craftsmanship, patience,
                             and the countless hands that guide every bean from origin to cup.
                         </p>

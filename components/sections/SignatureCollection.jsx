@@ -78,11 +78,11 @@ export default function SignatureCollection() {
 
             {/* ── Editorial animated frame ── */}
             <AnimatedFrame>
-                <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.55fr] min-h-[540px] lg:min-h-[680px]">
+                <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.55fr] min-h-[380px] md:min-h-[480px] lg:min-h-[680px]">
 
                     {/* Left panel */}
                     <div
-                        className="flex flex-col justify-between px-8 py-10 lg:px-14 lg:py-14 border-b lg:border-b-0 lg:border-r"
+                        className="flex flex-col justify-between px-6 py-8 lg:px-14 lg:py-14 border-b lg:border-b-0 lg:border-r"
                         style={{ borderColor: "rgba(202,203,167,0.09)" }}
                     >
                         <motion.p
@@ -106,7 +106,7 @@ export default function SignatureCollection() {
 
                         <motion.span
                             {...fadeIn(0.55)}
-                            className="hidden lg:block mt-12 text-[0.6rem] uppercase tracking-[0.32em] font-light"
+                            className="hidden md:block mt-8 text-[0.6rem] uppercase tracking-[0.32em] font-light"
                             style={{ color: "rgba(255,255,255,0.25)" }}
                         >
                             Est.&ensp;MMXXIV
@@ -120,7 +120,7 @@ export default function SignatureCollection() {
                         transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
                         viewport={{ once: true }}
                         className="relative overflow-hidden"
-                        style={{ minHeight: "380px" }}
+                        style={{ minHeight: "300px" }}
                     >
                         <motion.div
                             initial={{ scale: 1.08 }}
@@ -160,7 +160,7 @@ export default function SignatureCollection() {
                 {/* Logo column */}
                 <motion.div
                     {...fadeIn(0.1)}
-                    className="flex items-center justify-center border-b lg:border-b-0 lg:border-r py-10 lg:py-0 min-h-[120px] lg:min-h-0"
+                    className="flex items-center justify-center border-b lg:border-b-0 lg:border-r py-8 lg:py-0 min-h-[100px] lg:min-h-0"
                     style={{ borderColor: "rgba(202,203,167,0.09)" }}
                 >
                     <div
@@ -180,7 +180,7 @@ export default function SignatureCollection() {
                 </motion.div>
 
                 {/* Product info */}
-                <div className="px-8 py-10 lg:px-14 lg:py-12">
+                <div className="px-6 py-8 lg:px-14 lg:py-12">
                     <motion.h3
                         {...fadeUp(0.08)}
                         className="text-[clamp(1.8rem,4vw,3rem)] font-light tracking-[-0.01em] mb-5"

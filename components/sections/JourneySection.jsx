@@ -129,13 +129,13 @@ function MobileStepCard({ step }) {
                 initial={{ scaleX: 0, opacity: 0 }}
                 animate={inView ? { scaleX: 1, opacity: 1 } : {}}
                 transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
-                style={{ transformOrigin: "left center", height: "1px", background: "rgba(202,203,167,0.10)", marginBottom: "48px" }}
+                style={{ transformOrigin: "left center", height: "1px", background: "rgba(202,203,167,0.10)", marginBottom: "40px" }}
             />
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={inView ? { opacity: 1 } : {}}
                 transition={{ duration: 0.4, delay: 0.1 }}
-                className="mb-10"
+                className="mb-8 max-h-[70vh] overflow-hidden"
             >
                 <ImageReveal
                     src={step.image}
@@ -195,7 +195,7 @@ function MobileStepCard({ step }) {
                         initial={{ opacity: 0, x: 12 }}
                         animate={inView ? { opacity: 1, x: 0 } : {}}
                         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.48 + di * 0.07 }}
-                        className="flex justify-between py-3"
+                        className="flex justify-between py-4 min-h-[44px] items-center"
                         style={{ borderBottom: "1px solid rgba(202,203,167,0.09)" }}
                     >
                         <span className="text-[0.68rem] uppercase tracking-[0.28em] font-light" style={{ color: "rgba(202,203,167,0.45)" }}>{d.label}</span>
@@ -203,7 +203,7 @@ function MobileStepCard({ step }) {
                     </motion.div>
                 ))}
             </div>
-            <div className="mt-14 mb-2" />
+            <div className="mt-12 mb-2" />
         </div>
     );
 }

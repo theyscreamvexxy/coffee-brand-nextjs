@@ -65,7 +65,7 @@ export default function BrandPhilosophy() {
                 </motion.div>
 
                 {/* ── Top rule + label ── */}
-                <div className="mb-14 lg:mb-20">
+                <div className="mb-8 lg:mb-20">
                     <Rule delay={0} />
                     <div className="flex items-center justify-between mt-7">
                         <motion.p
@@ -86,13 +86,13 @@ export default function BrandPhilosophy() {
                 </div>
 
                 {/* ── Manifesto headline + right image ── */}
-                <div className="mb-20 lg:mb-28 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
+                <div className="mb-14 lg:mb-28 grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-stretch">
 
                     {/* LEFT — staggered word-by-word reveal */}
                     <div className="flex flex-col justify-between">
                         <div>
                             <h2
-                                className="text-[clamp(3.2rem,7.5vw,8.5rem)] leading-[0.87] tracking-[-0.025em] font-light"
+                                className="text-[clamp(2.6rem,7.5vw,8.5rem)] leading-[0.87] tracking-[-0.025em] font-light"
                                 style={{ color: "#CACBA7" }}
                             >
                                 {["THE", "FOREST", "DOESN'T", "GROW", "COFFEE."].map((word, i) => (
@@ -115,7 +115,7 @@ export default function BrandPhilosophy() {
 
                         <div>
                             <h2
-                                className="text-[clamp(3.2rem,7.5vw,8.5rem)] leading-[0.87] tracking-[-0.025em] font-semibold text-white"
+                                className="text-[clamp(2.6rem,7.5vw,8.5rem)] leading-[0.87] tracking-[-0.025em] font-semibold text-white"
                             >
                                 {["PEOPLE", "DO."].map((word, i) => (
                                     <LineReveal key={word} delay={0.52 + i * 0.1} blur={18}>
@@ -135,7 +135,7 @@ export default function BrandPhilosophy() {
                         duration={1.5}
                         scale={1.07}
                         aspectRatio="auto"
-                        style={{ minHeight: "320px" }}
+                        style={{ minHeight: "260px" }}
                     />
                 </div>
 
@@ -143,7 +143,7 @@ export default function BrandPhilosophy() {
                 <Rule delay={0.1} />
 
                 {/* ── Body copy — asymmetric grid ── */}
-                <div className="mt-16 lg:mt-20 grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-10 lg:gap-16 items-start">
+                <div className="mt-12 lg:mt-20 grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-8 lg:gap-16 items-start">
 
                     {/* Left image — center wipe */}
                     <ImageReveal
@@ -185,7 +185,7 @@ export default function BrandPhilosophy() {
                             <p className="uppercase tracking-[0.38em] text-[0.58rem] font-light mb-5" style={{ color: "var(--text-label)" }}>
                                 Our Commitment
                             </p>
-                            <h3 className="text-[clamp(2rem,4.2vw,4.2rem)] leading-[0.88] tracking-[-0.025em] font-bold text-white">
+                            <h3 className="text-[clamp(1.8rem,4.2vw,4.2rem)] leading-[0.88] tracking-[-0.025em] font-bold text-white">
                                 ROOTED<br />IN RESPECT.
                             </h3>
                             <motion.div
@@ -201,7 +201,7 @@ export default function BrandPhilosophy() {
                 </div>
 
                 {/* ── Bottom close ── */}
-                <div className="mt-16 lg:mt-24 flex items-center gap-4">
+                <div className="mt-10 lg:mt-24 flex items-center gap-4">
                     <Rule delay={0.2} />
                     <motion.span
                         {...fadeIn(0.4)}

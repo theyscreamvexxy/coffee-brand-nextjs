@@ -9,7 +9,7 @@ export default function Section({
 }) {
     return (
         <section
-            className={`py-section relative ${className}`}
+            className={`py-16 md:py-24 lg:py-section relative ${className}`}
             style={style}
             {...rest}
         >

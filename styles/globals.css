@@ -280,6 +280,11 @@ body {
     animation: shimmer 3s linear infinite;
 }
 
+/* ── Mobile snap-gallery: hide scrollbar, preserve scroll ───────────── */
+.mobile-snap-track::-webkit-scrollbar {
+    display: none;
+}
+
 /* ── Reduced Motion ──────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
     *,

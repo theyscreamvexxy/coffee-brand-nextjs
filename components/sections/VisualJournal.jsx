@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Section from "@/components/layout/Section";
@@ -247,55 +247,206 @@ export default function VisualJournal() {
                 </div>
             </div>
 
-            {/* ── MOBILE — Standard vertical layout ── */}
+            {/* ── MOBILE/TABLET — Premium snap-scroll carousel ── */}
             <div
                 className="lg:hidden"
                 style={{ background: "#080f0a" }}
             >
-                <Section className="text-white">
-                    <div className="mb-16">
-                        <p className="uppercase tracking-[0.38em] text-[0.65rem] text-white/35 mb-6">
-                            Visual Journal
-                        </p>
-                        <h2 className="text-[clamp(3rem,7vw,6rem)] leading-[0.9] font-light">
-                            Moments From<br /><span className="font-semibold">The Roastery.</span>
-                        </h2>
-                    </div>
+                {/* Section header */}
+                <div className="px-6 md:px-8 pt-16 md:pt-24 pb-8">
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ duration: 0.8 }}
+                        viewport={{ once: true }}
+                        className="uppercase tracking-[0.38em] text-[0.62rem] mb-5"
+                        style={{ color: "rgba(255,255,255,0.32)" }}
+                    >
+                        Visual Journal
+                    </motion.p>
+                    <h2 className="text-[clamp(2.4rem,7vw,4.5rem)] leading-[0.9] font-light text-white">
+                        <LineReveal delay={0.05} blur={14}>Moments From</LineReveal>
+                        <LineReveal delay={0.18} blur={14}>
+                            <span className="font-semibold">The Roastery.</span>
+                        </LineReveal>
+                    </h2>
+                    <motion.div
+                        initial={{ width: 0, opacity: 0 }}
+                        whileInView={{ width: "2.5rem", opacity: 1 }}
+                        transition={{ duration: 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                        viewport={{ once: true }}
+                        className="mt-6 h-px"
+                        style={{ background: "#6D8575" }}
+                    />
+                </div>
 
-                    <div className="space-y-8">
-                        <motion.a
-                            href={items[0].link}
-                            whileHover={{ scale: 1.01 }}
-                            className="relative block overflow-hidden"
-                            style={{ aspectRatio: "16/9" }}
-                        >
-                            <Image src={items[0].src} alt="" fill className="object-cover" />
-                        </motion.a>
-                        <div className="grid grid-cols-2 gap-8">
-                            {items.slice(1).map((item, index) => (
-                                <motion.a
-                                    key={index}
-                                    href={item.link}
-                                    whileHover={{ scale: 1.01 }}
-                                    className="relative block overflow-hidden"
-                                    style={{ aspectRatio: "1/1" }}
-                                >
-                                    <Image src={item.src} alt="" fill className="object-cover" />
-                                </motion.a>
-                            ))}
-                        </div>
-                    </div>
+                {/* ── SNAP SCROLL CAROUSEL ── */}
+                <MobileCarousel items={items} />
 
-                    <div className="mt-12">
-                        <a
-                            href="/gallery"
-                            className="btn-underline uppercase tracking-[0.25em] text-sm text-white/50 hover:text-white transition"
-                        >
-                            View More Stories →
-                        </a>
-                    </div>
-                </Section>
+                {/* View Gallery CTA */}
+                <div className="px-6 md:px-8 pb-16 md:pb-24 pt-8">
+                    <a
+                        href="/gallery"
+                        className="flex items-center justify-between w-full py-5 px-6 rounded-none active:scale-[0.98] transition-transform duration-150"
+                        style={{
+                            border: "1px solid rgba(202,203,167,0.12)",
+                            color: "rgba(202,203,167,0.65)",
+                        }}
+                    >
+                        <span className="uppercase tracking-[0.28em] text-[0.62rem] font-light">
+                            View Gallery
+                        </span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" strokeWidth="0.9" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
             </div>
         </>
+    );
+}
+
+/* ── Mobile snap-scroll carousel (client-side state for dot indicator) ── */
+function MobileCarousel({ items }) {
+    const scrollRef = useRef(null);
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    useEffect(() => {
+        const el = scrollRef.current;
+        if (!el) return;
+
+        const onScroll = () => {
+            const cardWidth = el.clientWidth * (window.innerWidth >= 768 ? 0.46 : 0.88);
+            const gap = 16;
+            const index = Math.round(el.scrollLeft / (cardWidth + gap));
+            setActiveIndex(Math.min(index, items.length - 1));
+        };
+
+        el.addEventListener("scroll", onScroll, { passive: true });
+        return () => el.removeEventListener("scroll", onScroll);
+    }, [items.length]);
+
+    return (
+        <div>
+            {/* Scroll track */}
+            <div
+                ref={scrollRef}
+                className="flex gap-4 overflow-x-auto pb-2"
+                style={{
+                    scrollSnapType: "x mandatory",
+                    WebkitOverflowScrolling: "touch",
+                    scrollbarWidth: "none",
+                    msOverflowStyle: "none",
+                    paddingLeft: "24px",
+                    paddingRight: "24px",
+                    cursor: "grab",
+                }}
+            >
+                {items.map((item, index) => (
+                    <MobileCarouselCard key={index} item={item} index={index} />
+                ))}
+                {/* Trailing invisible spacer keeps last card snapping cleanly */}
+                <div className="flex-shrink-0 w-1" aria-hidden />
+            </div>
+
+            {/* Dot indicators */}
+            <div className="flex items-center justify-center gap-2 mt-5">
+                {items.map((_, i) => (
+                    <button
+                        key={i}
+                        aria-label={`Go to image ${i + 1}`}
+                        onClick={() => {
+                            const el = scrollRef.current;
+                            if (!el) return;
+                            const cardWidth = el.clientWidth * (window.innerWidth >= 768 ? 0.46 : 0.88);
+                            el.scrollTo({ left: i * (cardWidth + 16), behavior: "smooth" });
+                        }}
+                        className="transition-all duration-400"
+                        style={{
+                            width:        i === activeIndex ? "24px" : "6px",
+                            height:       "6px",
+                            borderRadius: i === activeIndex ? "3px" : "50%",
+                            background:   i === activeIndex ? "#6D8575" : "rgba(202,203,167,0.22)",
+                            border:       "none",
+                            padding:      0,
+                            cursor:       "pointer",
+                            transition:   "width 400ms cubic-bezier(0.22,1,0.36,1), background 300ms ease, border-radius 400ms ease",
+                        }}
+                    />
+                ))}
+            </div>
+        </div>
+    );
+}
+
+/* ── Individual carousel card ── */
+function MobileCarouselCard({ item, index }) {
+    const cardRef = useRef(null);
+    const inView = useInView(cardRef, { once: true, margin: "0px 0px -60px 0px" });
+
+    return (
+        <motion.div
+            ref={cardRef}
+            initial={{ opacity: 0, scale: 0.96 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.05 * index }}
+            className="relative flex-shrink-0 overflow-hidden"
+            style={{
+                /* 88vw on mobile, 46vw on tablet (2 cards visible + peek) */
+                width: "clamp(260px, 88vw, 380px)",
+                aspectRatio: "3/4",
+                scrollSnapAlign: "start",
+                borderRadius: "2px",
+            }}
+        >
+            {/* Image with clip-path reveal */}
+            <motion.div
+                initial={{ clipPath: "inset(0 100% 0 0)" }}
+                animate={inView ? { clipPath: "inset(0 0% 0 0)" } : {}}
+                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.1 + 0.05 * index }}
+                className="absolute inset-0"
+            >
+                <motion.div
+                    initial={{ scale: 1.08 }}
+                    animate={inView ? { scale: 1 } : {}}
+                    transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 + 0.05 * index }}
+                    className="absolute inset-0"
+                >
+                    <Image src={item.src} alt={item.caption} fill className="object-cover" />
+                </motion.div>
+            </motion.div>
+
+            {/* Gradient overlay */}
+            <div
+                className="absolute inset-0"
+                style={{
+                    background: "linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.15) 40%, transparent 70%)",
+                    pointerEvents: "none",
+                }}
+            />
+
+            {/* Caption — always visible (touch-first) */}
+            <div className="absolute bottom-0 left-0 right-0 p-5">
+                <span
+                    className="uppercase tracking-[0.28em] font-light block"
+                    style={{ fontSize: "0.58rem", color: "rgba(202,203,167,0.8)" }}
+                >
+                    {item.caption}
+                </span>
+            </div>
+
+            {/* Index watermark */}
+            <div
+                className="absolute top-4 right-4"
+                style={{
+                    fontFamily: "monospace",
+                    fontSize: "0.5rem",
+                    color: "rgba(202,203,167,0.3)",
+                    letterSpacing: "0.2em",
+                }}
+            >
+                {String(index + 1).padStart(2, "0")}
+            </div>
+        </motion.div>
     );
 }

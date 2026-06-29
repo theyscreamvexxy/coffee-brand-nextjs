@@ -44,8 +44,8 @@ export default function Testimonials() {
                 </h2>
             </div>
 
-            {/* ── Testimonials — 3-col desktop, stacked mobile ── */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-0">
+            {/* ── Testimonials — 3-col desktop, 2-col tablet, stacked mobile ── */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0">
                 {testimonials.map((item, index) => (
                     <motion.div
                         key={index}
@@ -60,8 +60,10 @@ export default function Testimonials() {
                         className="group relative"
                         style={{
                             borderTop: "1px solid rgba(255,255,255,0.08)",
+                            /* On tablet+ the col border re-creates the vertical rule;
+                               on mobile remove it — cards stack so left border looks wrong */
                             borderLeft: index > 0 ? "1px solid rgba(255,255,255,0.06)" : "none",
-                            padding: "40px 36px 40px 36px",
+                            padding: "clamp(24px, 5vw, 40px) clamp(20px, 4vw, 36px)",
                         }}
                     >
                         {/* Left accent — grows on hover */}
@@ -97,7 +99,7 @@ export default function Testimonials() {
                         </div>
 
                         <blockquote
-                            className="text-[clamp(1.1rem,2vw,1.5rem)] leading-[1.35] max-w-sm font-light mb-8"
+                            className="text-[clamp(1rem,4vw,1.5rem)] leading-[1.4] max-w-sm font-light mb-8"
                             style={{ color: "rgba(255,255,255,0.85)" }}
                         >
                             {item.quote}
@@ -131,7 +133,7 @@ export default function Testimonials() {
             </div>
 
             {/* Bottom close */}
-            <div className="mt-16 flex items-center gap-4">
+            <div className="mt-12 lg:mt-16 flex items-center gap-4">
                 <motion.div
                     initial={{ scaleX: 0, opacity: 0 }} whileInView={{ scaleX: 1, opacity: 1 }}
                     transition={{ duration: 1.0 }} viewport={{ once: true }}
