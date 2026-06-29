@@ -33,7 +33,19 @@ export default function LineReveal({
     return (
         <div
             ref={containerRef}
-            style={{ overflow: "hidden", display: "block", lineHeight: "inherit" }}
+            style={{
+                overflow:     "hidden",
+                display:      "block",
+                lineHeight:   "inherit",
+                /*
+                 * Descender guard: letters like g, y, p drop below the baseline.
+                 * With tight line-heights (0.87–0.9) the overflow:hidden clip cuts
+                 * them off. paddingBottom opens space for descenders; the matching
+                 * negative marginBottom cancels the extra gap so layout is unchanged.
+                 */
+                paddingBottom: "0.2em",
+                marginBottom:  "-0.2em",
+            }}
         >
             <motion.div
                 initial={{
