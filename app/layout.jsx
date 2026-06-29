@@ -5,6 +5,9 @@ import {
     Cormorant_Garamond,
 } from "next/font/google";
 import Navbar from "@/components/layout/Navbar";
+import SmoothScrollProvider from "@/components/layout/SmoothScrollProvider";
+import ScrollProgressBar from "@/components/layout/ScrollProgressBar";
+import CustomCursor from "@/components/layout/CustomCursor";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -31,8 +34,12 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <body className={`${inter.variable} ${manrope.variable} ${cormorant.variable}`}>
+                <ScrollProgressBar />
+                <CustomCursor />
                 <Navbar />
-                {children}
+                <SmoothScrollProvider>
+                    {children}
+                </SmoothScrollProvider>
             </body>
         </html>
     );

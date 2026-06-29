@@ -4,6 +4,7 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,84 +20,64 @@ export default function HeroFrameSequence() {
     const [heroReveal, setHeroReveal] = useState(false);
     const [portalGreen, setPortalGreen] = useState(false);
     const [loaderOpacity, setLoaderOpacity] = useState(1);
-
+    const [showScrollHint, setShowScrollHint] = useState(false);
+    const [scrollHintVisible, setScrollHintVisible] = useState(true);
 
     const framesReady = loadingProgress === 100;
 
     useEffect(() => {
-
         if (!framesReady || !minTimePassed) return;
-
         setLoaderPhase("filled");
-
     }, [framesReady, minTimePassed]);
 
     useEffect(() => {
-
         if (loaderPhase !== "filled") return;
-
-        const timer = setTimeout(() => {
-            setLoaderPhase("expanding");
-        }, 500);
-
+        const timer = setTimeout(() => { setLoaderPhase("expanding"); }, 500);
         return () => clearTimeout(timer);
-
     }, [loaderPhase]);
 
     useEffect(() => {
-
         if (loaderPhase !== "expanding") return;
-
-        requestAnimationFrame(() => {
-            setLogoScale(150);
-        });
-
-        const timer = setTimeout(() => {
-            setLoaderPhase("portal");
-        }, 10);
-
+        requestAnimationFrame(() => { setLogoScale(150); });
+        const timer = setTimeout(() => { setLoaderPhase("portal"); }, 10);
         return () => clearTimeout(timer);
-
     }, [loaderPhase]);
 
     useEffect(() => {
-
         if (loaderPhase !== "portal") return;
-
-        requestAnimationFrame(() => {
-            setPortalWidth(100);
-        });
-
+        requestAnimationFrame(() => { setPortalWidth(100); });
         const openTimer = setTimeout(() => {
             setPortalGreen(true);
             setPortalHeight(window.innerHeight);
         }, 1200);
-
-
-
         const revealTimer = setTimeout(() => {
             setHeroReveal(true);
             setLoaderOpacity(0);
-
             setTimeout(() => {
                 setShowLoader(false);
+                // Show scroll hint after loader exits
+                setTimeout(() => setShowScrollHint(true), 400);
             }, 600);
         }, 4200);
-
-        return () => {
-            clearTimeout(openTimer);
-            clearTimeout(revealTimer);
-        };
-
+        return () => { clearTimeout(openTimer); clearTimeout(revealTimer); };
     }, [loaderPhase]);
 
-    const canvasRef = useRef(null);
+    // Hide scroll hint on first scroll
+    useEffect(() => {
+        if (!showScrollHint) return;
+        const onScroll = () => {
+            setScrollHintVisible(false);
+            window.removeEventListener("scroll", onScroll);
+        };
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+    }, [showScrollHint]);
+
+    const canvasRef  = useRef(null);
     const sectionRef = useRef(null);
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-            setMinTimePassed(true);
-        }, 3000);
+        const timer = setTimeout(() => { setMinTimePassed(true); }, 3000);
 
         const canvas = canvasRef.current;
         const ctx = canvas.getContext("2d");
@@ -104,177 +85,79 @@ export default function HeroFrameSequence() {
         const frameCount = 240;
         let imagesLoaded = 0;
         const totalFrames = frameCount;
-
         const images = [];
 
         const frames = Array.from(
             { length: frameCount },
-            (_, i) =>
-                `/frames/hero/ezgif-frame-${String(i + 1).padStart(3, "0")}.jpg`
+            (_, i) => `/frames/hero/ezgif-frame-${String(i + 1).padStart(3, "0")}.jpg`
         );
-        const sequence = {
-            frame: 0,
-        };
-
+        const sequence = { frame: 0 };
         let currentFrame = 0;
 
-        // ─── renderFrame declared FIRST ───────────────────────────────────────
-        // Must be defined before resizeCanvas, which calls it.
-        //
-        // FIX 1 — guard against unloaded images:
-        // The original guard `if (!image) return` only checked existence.
-        // A `new Image()` object is always truthy, even before it has loaded.
-        // Calling ctx.drawImage on an unloaded image produces image.naturalWidth
-        // === 0, which makes imageAspect = NaN, and all draw dimensions NaN.
-        // ctx.drawImage with NaN parameters silently draws nothing — canvas
-        // stays black with no error thrown. The fix: also require naturalWidth
-        // > 0, which is only true once the image has fully decoded.
         const renderFrame = (index) => {
             const image = images[index];
-
-            // Guard: image must exist AND be fully decoded.
-            // A `new Image()` is always truthy before it loads, so the original
-            // `if (!image) return` was insufficient. An unloaded image has
-            // naturalWidth === 0, which produces NaN geometry in the cover-fit
-            // math and causes ctx.drawImage to silently draw nothing.
             if (!image || !image.naturalWidth) return;
-
-            ctx.clearRect(
-                0,
-                0,
-                window.innerWidth,
-                window.innerHeight
-            );
-
-            const imageAspect = image.naturalWidth / image.naturalHeight;
-            const viewportWidth = window.innerWidth;
+            ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+            const imageAspect  = image.naturalWidth / image.naturalHeight;
+            const viewportWidth  = window.innerWidth;
             const viewportHeight = window.innerHeight;
-
-            const canvasAspect =
-                viewportWidth / viewportHeight;
-
-            let drawWidth;
-            let drawHeight;
-            let offsetX;
-            let offsetY;
-
+            const canvasAspect   = viewportWidth / viewportHeight;
+            let drawWidth, drawHeight, offsetX, offsetY;
             if (imageAspect > canvasAspect) {
                 drawHeight = viewportHeight;
-                drawWidth = drawHeight * imageAspect;
-                offsetX = (viewportWidth - drawWidth) / 2;
-                offsetY = 0;
+                drawWidth  = drawHeight * imageAspect;
+                offsetX    = (viewportWidth - drawWidth) / 2;
+                offsetY    = 0;
             } else {
-                drawWidth = viewportWidth;
+                drawWidth  = viewportWidth;
                 drawHeight = drawWidth / imageAspect;
-                offsetX = 0;
-                offsetY = (viewportHeight - drawHeight) / 2;
+                offsetX    = 0;
+                offsetY    = (viewportHeight - drawHeight) / 2;
             }
-
-            ctx.drawImage(
-                image,
-                offsetX,
-                offsetY,
-                drawWidth,
-                drawHeight
-            );
+            ctx.drawImage(image, offsetX, offsetY, drawWidth, drawHeight);
         };
-        // ─────────────────────────────────────────────────────────────────────
 
-        // ─── canvas sizing helpers ──────────────────────────────────────────────
-        //
-        // Responsibilities are split deliberately:
-        //
-        //   applyDPR()      — resizes the canvas bitmap and resets the context
-        //                     transform for the current devicePixelRatio.
-        //                     Does NOT draw a frame. Safe to call any time.
-        //
-        //   resizeCanvas()  — called by the window 'resize' listener.
-        //                     Only calls applyDPR(). Frame redraw is intentionally
-        //                     NOT done here; it is handled by ScrollTrigger's
-        //                     onRefresh callback (below) which fires after GSAP
-        //                     has finished recalculating pin-spacer heights,
-        //                     trigger start/end positions, and scroll-progress.
-        //
-        //                     If we drew a frame here (in the resize listener)
-        //                     we would race against ScrollTrigger's deferred
-        //                     refresh: resizeCanvas runs synchronously with the
-        //                     resize event while ScrollTrigger.refresh() runs in
-        //                     a subsequent RAF. Whichever runs last wins, and the
-        //                     loser's frame draw is computed against stale pin
-        //                     geometry — producing the wrong frame or wrong
-        //                     viewport scale.
         const applyDPR = () => {
             const dpr = window.devicePixelRatio || 1;
-            canvas.width = window.innerWidth * dpr;
+            canvas.width  = window.innerWidth  * dpr;
             canvas.height = window.innerHeight * dpr;
-            canvas.style.width = `${window.innerWidth}px`;
+            canvas.style.width  = `${window.innerWidth}px`;
             canvas.style.height = `${window.innerHeight}px`;
             ctx.setTransform(1, 0, 0, 1, 0, 0);
             ctx.scale(dpr, dpr);
         };
 
-        const resizeCanvas = () => {
-            // Resize the bitmap only. onRefresh redraws the frame once
-            // ScrollTrigger has updated its scroll metrics.
-            applyDPR();
-        };
+        const resizeCanvas = () => { applyDPR(); };
 
-        // FIX: initialise frame 0 BEFORE calling resizeCanvas.
-        // Previously frame 0 was set up well after resizeCanvas() was called,
-        // so images[0] was always undefined on the first draw attempt.
-        // Moving it here means cached images are available immediately and
-        // resizeCanvas() can draw frame 0 on the very first call.
-        //
-        // onload MUST be assigned before .src — safe async-load path.
         const frame0 = new Image();
         images[0] = frame0;
         frame0.onload = () => renderFrame(0);
         frame0.src = frames[0];
-        // Belt-and-suspenders for synchronous cache hits.
         if (frame0.complete && frame0.naturalWidth > 0) renderFrame(0);
 
-        // ─── initial canvas setup ──────────────────────────────────────────────
-        // applyDPR() sizes the canvas for the current viewport. We call it once
-        // here (not resizeCanvas, which skips the frame draw on purpose) and
-        // then immediately try to draw frame 0 in case it is already cached.
         applyDPR();
-        renderFrame(0);                 // no-op if frame0 not yet decoded
+        renderFrame(0);
         window.addEventListener("resize", resizeCanvas);
 
         const preloadImage = (index) => {
             const img = new Image();
-
             img.onload = () => {
                 imagesLoaded++;
-
-                setLoadingProgress(
-                    Math.round(
-                        (imagesLoaded / totalFrames) * 100
-                    )
-                );
+                setLoadingProgress(Math.round((imagesLoaded / totalFrames) * 100));
             };
-
             img.src = frames[index];
-
             images[index] = img;
         };
 
-        // Start from i=1 — frame 0 has its own dedicated Image object above.
-        for (let i = 1; i < frameCount; i++) {
-            preloadImage(i);
-        }
+        for (let i = 1; i < frameCount; i++) { preloadImage(i); }
 
-        // Store the tween so we can kill it in the cleanup below.
         const tween = gsap.to(sequence, {
             frame: frameCount - 1,
             ease: "none",
             onUpdate: () => {
                 const frame = Math.round(sequence.frame);
-
                 if (frame === currentFrame) return;
-
                 currentFrame = frame;
-
                 renderFrame(frame);
             },
             scrollTrigger: {
@@ -283,65 +166,31 @@ export default function HeroFrameSequence() {
                 end: "+=700",
                 scrub: true,
                 pin: true,
-                // onRefresh fires after every ScrollTrigger.refresh():
-                //   • the initial internal refresh that runs during setup
-                //   • subsequent window-resize recalculations
-                // This ensures the correct frame is always drawn after a layout
-                // recalc — including frame 0 at progress=0 on page load, which
-                // onUpdate's dedup guard would otherwise silently skip.
                 onRefresh: (self) => {
-                    const frame = Math.round(
-                        self.progress * (frameCount - 1)
-                    );
+                    const frame = Math.round(self.progress * (frameCount - 1));
                     currentFrame = frame;
                     renderFrame(frame);
                 },
             },
         });
 
-        // ─── cleanup ──────────────────────────────────────────────────────────
-        //
-        // ORDER MATTERS — we must kill the ScrollTrigger BEFORE killing the
-        // tween, and we must do both BEFORE React commits its DOM deletions.
-        //
-        // Why tween.kill() alone is insufficient:
-        //   GSAP's pin:true physically moves sectionRef.current into a new
-        //   <div class="pin-spacer"> that GSAP inserts into the real DOM.
-        //   React's fiber tree still records the ORIGINAL parent.
-        //   Per GSAP docs: "Killing the ScrollTrigger kills the animation.
-        //   Killing the animation does NOT kill the ScrollTrigger."
-        //   So tween.kill() removes the animation but leaves the pin-spacer
-        //   in place. React then calls originalParent.removeChild(section),
-        //   but the section is inside pin-spacer, not originalParent →
-        //   NotFoundError: "The node to be removed is not a child of this node."
-        //
-        // tween.scrollTrigger.kill() reverts the pin: removes pin-spacer,
-        // moves section back to its original parent, and kills the animation.
-        // The subsequent tween.kill() is a safe no-op.
         return () => {
             clearTimeout(timer);
-
             window.removeEventListener("resize", resizeCanvas);
-            tween.scrollTrigger?.kill(); // reverts pin-spacer DOM changes first
-            tween.kill();               // safe no-op; belt-and-suspenders
+            tween.scrollTrigger?.kill();
+            tween.kill();
         };
-
-
     }, []);
-
-
 
     return (
         <>
+            {/* ── LOADER ────────────────────────────────────────────────────── */}
             {showLoader && (
                 <div
                     className="fixed inset-0 z-[9999] flex items-center justify-center bg-[#7A8B78]"
-                    style={{
-                        opacity: loaderOpacity,
-                        transition: "opacity 0.6s ease",
-                    }}
+                    style={{ opacity: loaderOpacity, transition: "opacity 0.6s ease" }}
                 >
-
+                    {/* Logo fill reveal */}
                     <div
                         className="relative w-[180px] h-[260px]"
                         style={{
@@ -350,85 +199,91 @@ export default function HeroFrameSequence() {
                             transition: "transform 2.2s cubic-bezier(0.22, 1, 0.36, 1)",
                         }}
                     >
-
                         <img
                             src="/images/brand/logo.png"
                             alt="Forest Farmer"
                             className="absolute inset-0 w-full h-full object-contain opacity-20"
-                            style={{
-                                transform: "translateY(5px)",
-                            }}
+                            style={{ transform: "translateY(5px)" }}
                         />
-
                         <div
                             className="absolute inset-0 overflow-hidden"
-                            style={{
-                                clipPath: `inset(${100 - loadingProgress}% 0 0 0)`,
-                            }}
+                            style={{ clipPath: `inset(${100 - loadingProgress}% 0 0 0)` }}
                         >
                             <img
                                 src="/images/brand/logo.png"
                                 alt="Forest Farmer"
                                 className="absolute inset-0 w-full h-full object-contain"
-                                style={{
-                                    transform: "translateY(5px)",
-                                }}
+                                style={{ transform: "translateY(5px)" }}
                             />
                         </div>
-
-
-
                     </div>
+
+                    {/* Loading progress label */}
+                    {loaderPhase === "loading" && (
+                        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
+                            <div
+                                className="h-px bg-white/20 relative overflow-hidden"
+                                style={{ width: "120px" }}
+                            >
+                                <div
+                                    className="absolute inset-y-0 left-0 bg-white/60"
+                                    style={{
+                                        width: `${loadingProgress}%`,
+                                        transition: "width 0.3s ease",
+                                    }}
+                                />
+                            </div>
+                            <span
+                                style={{
+                                    fontFamily: "var(--font-cormorant)",
+                                    fontSize: "0.6rem",
+                                    letterSpacing: "0.3em",
+                                    color: "rgba(255,255,255,0.4)",
+                                    textTransform: "uppercase",
+                                }}
+                            >
+                                {loadingProgress}%
+                            </span>
+                        </div>
+                    )}
+
+                    {/* Portal phase */}
                     {loaderPhase === "portal" && (
                         <>
-
                             <div
-
                                 className="absolute left-1/2 top-1/2"
-
                                 style={{
-
                                     width: `${portalWidth}vw`,
-
                                     height: `${portalHeight}px`,
-
                                     backgroundColor: heroReveal
                                         ? "transparent"
                                         : portalGreen
                                             ? "#4E5B4A"
                                             : "white",
                                     filter: portalGreen ? "blur(120px)" : "blur(80px)",
-
                                     transform: "translate(-50%, -50%)",
-
                                     transition: "width 1.2s cubic-bezier(0.22,1,0.36,1), height 1.2s cubic-bezier(0.22,1,0.36,1), background-color 2s ease",
-
                                 }}
-
                             />
                             {portalGreen && (
                                 <div
                                     className="absolute inset-0 pointer-events-none"
                                     style={{
-                                        background:
-                                            "radial-gradient(circle at 30% 40%, rgba(255,255,255,0.15), transparent 40%), radial-gradient(circle at 70% 60%, rgba(255,255,255,0.12), transparent 45%), radial-gradient(circle at 50% 50%, rgba(255,255,255,0.08), transparent 50%)",
+                                        background: "radial-gradient(circle at 30% 40%, rgba(255,255,255,0.15), transparent 40%), radial-gradient(circle at 70% 60%, rgba(255,255,255,0.12), transparent 45%), radial-gradient(circle at 50% 50%, rgba(255,255,255,0.08), transparent 50%)",
                                         filter: "blur(80px)",
                                         opacity: 0.35,
                                         animation: "fogFloat 6s ease-in-out infinite",
                                     }}
                                 />
                             )}
-
                             {portalGreen && !heroReveal && (
                                 <div
                                     className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
-                                    style={{
-                                        transform: "translateY(-50px)",
-                                    }}
+                                    style={{ transform: "translateY(-50px)" }}
                                 >
                                     <h1
+                                        className="text-shimmer"
                                         style={{
-                                            color: "#ffffff",
                                             fontFamily: "var(--font-cormorant)",
                                             fontSize: "clamp(2.8rem, 5vw, 4.5rem)",
                                             fontWeight: 500,
@@ -439,7 +294,6 @@ export default function HeroFrameSequence() {
                                     >
                                         FOREST FARMER
                                     </h1>
-
                                     <p
                                         style={{
                                             color: "rgba(255,255,255,0.75)",
@@ -454,17 +308,12 @@ export default function HeroFrameSequence() {
                                     </p>
                                 </div>
                             )}
-
                         </>
                     )}
-
                 </div>
-
-
-
-
             )}
 
+            {/* ── HERO SECTION ──────────────────────────────────────────────── */}
             <section
                 ref={sectionRef}
                 className="relative h-[110vh] w-full overflow-hidden"
@@ -472,8 +321,103 @@ export default function HeroFrameSequence() {
                 <canvas
                     ref={canvasRef}
                     className="absolute top-0 left-0 w-screen h-screen"
-
                 />
+
+                {/* Cinematic vignette overlay */}
+                <div className="vignette" />
+
+                {/* Edge-corner coordinates — appear after hero reveal */}
+                <AnimatePresence>
+                    {heroReveal && (
+                        <>
+                            {/* Bottom-left coordinate */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 12 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 1.2, delay: 0.6, ease: [0.22,1,0.36,1] }}
+                                className="absolute bottom-10 left-8 z-10 pointer-events-none"
+                            >
+                                <span style={{
+                                    fontFamily: "monospace",
+                                    fontSize: "0.52rem",
+                                    letterSpacing: "0.18em",
+                                    color: "rgba(202,203,167,0.40)",
+                                    textTransform: "uppercase",
+                                    display: "block",
+                                }}>
+                                    6.8756° N · 39.6014° E
+                                </span>
+                                <span style={{
+                                    fontSize: "0.48rem",
+                                    letterSpacing: "0.3em",
+                                    color: "rgba(202,203,167,0.25)",
+                                    textTransform: "uppercase",
+                                    display: "block",
+                                    marginTop: "4px",
+                                }}>
+                                    Forest Farms · Ethiopia
+                                </span>
+                            </motion.div>
+
+                            {/* Bottom-right brand line */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 12 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 1.2, delay: 0.8, ease: [0.22,1,0.36,1] }}
+                                className="absolute bottom-10 right-8 z-10 pointer-events-none text-right"
+                            >
+                                <span style={{
+                                    fontFamily: "var(--font-cormorant)",
+                                    fontSize: "0.6rem",
+                                    letterSpacing: "0.28em",
+                                    color: "rgba(202,203,167,0.35)",
+                                    textTransform: "uppercase",
+                                    display: "block",
+                                }}>
+                                    Specialty Coffee Roasters
+                                </span>
+                            </motion.div>
+                        </>
+                    )}
+                </AnimatePresence>
+
+                {/* Scroll indicator */}
+                <AnimatePresence>
+                    {showScrollHint && scrollHintVisible && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -8 }}
+                            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                            className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 pointer-events-none"
+                        >
+                            <span style={{
+                                fontSize: "0.5rem",
+                                letterSpacing: "0.32em",
+                                textTransform: "uppercase",
+                                color: "rgba(202,203,167,0.45)",
+                                fontFamily: "var(--font-inter)",
+                            }}>
+                                Scroll
+                            </span>
+                            <svg
+                                className="scroll-indicator-arrow"
+                                width="14"
+                                height="14"
+                                viewBox="0 0 14 14"
+                                fill="none"
+                            >
+                                <path
+                                    d="M7 1v12M1 7l6 6 6-6"
+                                    stroke="rgba(202,203,167,0.45)"
+                                    strokeWidth="1"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                />
+                            </svg>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
             </section>
         </>
     );
